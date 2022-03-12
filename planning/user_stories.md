@@ -23,3 +23,10 @@ Extras
 Options
 
 - RESTful API
+
+4 Categories
+1. Film / Series (To watch)
+2. Restaurants, cafes, etc. (To eat)
+3. Books (To read)
+4. Products (To buy)
+5. Miscellaneous
