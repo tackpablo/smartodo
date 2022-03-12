@@ -9,9 +9,4 @@ Delete - POST (\*DELETE) - /smartlist/:id/delete - delete tasks
 What would the :id be for in this case? Would it be for the todos.id?
 Is edit route required to change categories? to change categories yes
 
-Movies
 
-1. LOTR
-2. Spiderman
-
-Books
