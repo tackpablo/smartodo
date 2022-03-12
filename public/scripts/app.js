@@ -20,7 +20,6 @@ const createTodo = function (todoData) {
         <a href="#">${(todoData)}</a>
         <a href="#">${(todoData)}</a>
         <a href="#">${(todoData)}</a>
-        <a href="#">${(todoData)}</a>
         </div>
       </div>
         <form id="delete-task" action="/smartlist/:id/delete" method="POST">
@@ -49,7 +48,7 @@ const loadTodos = function () {
     dataType: "json",
   })
     .then((result) => {
-      renderTodos(result);
+      renderTodos(result.todos);
     })
     .catch((error) => alert(error));
 };
