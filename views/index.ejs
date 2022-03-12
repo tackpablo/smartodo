@@ -13,27 +13,48 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <img src="https://www.graphicsprings.com/filestorage/stencils/ed8fe22e267f227c5be2d9c9a6b40917.png?width=500&height=500" alt="" width="130"/>
+      </div>
+    <nav>
+      <ul>
+        <li>Yuki</li>
+        <button>Logout</button>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <body>
-<nav>
-
-</nav>
-
 <main>
-  <header>
-
-  </header>
-  <section>
+  <section class="input-container">
     <form id="add-task" action="/task" method="post">
-      <label for="task">Add task</label>
-      <textarea name="task" id="task-text"></textarea>
+      <label for="task">TASK TO ADD</label>
+      <textarea name="task" id="task-text" placeholder="Start typing here..."></textarea>
       <button type="submit">ADD</button>
     </form>
   </section>
+
+  <section class="category-container">
+    <div class="category">
+      <h2>THINGS TO WATCH</h2>
+    </div>
+    <div class="category">
+      <h2>THINGS TO EAT</h2>
+    </div>
+    <div class="category">
+      <h2>THINGS TO READ</h2>
+    </div>
+    <div class="category">
+      <h2>THINGS TO BUY</h2>
+    </div>
+    <div class="category">
+      <h2>MISCELLANEOUS</h2>
+    </div>
+  </section>
 </main>
-
-
-
-
 </body>
 
 </html>
