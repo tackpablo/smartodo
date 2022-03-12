@@ -22,7 +22,6 @@ section {
 }
 
 /* INPUT TEXT AREA */
-
 #add-task {
   display: flex;
   flex-direction: column;
@@ -82,7 +81,7 @@ ul li:hover{
   padding: 0 10em;
 }
 
-.category {
+.category1, .category2, .category3, .category4, .category5 {
   display: flex;
   padding-top: 0.8em;
   justify-content: center;
@@ -93,7 +92,6 @@ ul li:hover{
 }
 
 /* TO DO TASK */
-
 .todo-container {
   justify-content: center;
   display: flex;
@@ -106,6 +104,10 @@ ul li:hover{
   justify-content: space-evenly;
   width: 60%;
   border-radius: 2em;
+}
+
+.task-name {
+  flex-grow: 0.8;
 }
 
 .todo-options {
