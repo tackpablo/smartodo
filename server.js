@@ -37,11 +37,17 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const smartlistRoutes = require("./routes/smartlist");
+const smartlistEditroutes = require("./routes/smartlist_edit");
+const smartlistDeleteRoutes = require("./routes/smartlist_delete");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
+app.use("/smartlist", smartlistRoutes(db));
+app.use("/smartlist/:id", smartlistEditroutes(db));
+app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -49,7 +55,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index"); // need to cahnge this to new html file
 });
 
 app.listen(PORT, () => {
