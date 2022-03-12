@@ -35,16 +35,12 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
 const smartlistRoutes = require("./routes/smartlist");
 const smartlistEditroutes = require("./routes/smartlist_edit");
 const smartlistDeleteRoutes = require("./routes/smartlist_delete");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
 app.use("/smartlist", smartlistRoutes(db));
 app.use("/smartlist/:id", smartlistEditroutes(db));
 app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
