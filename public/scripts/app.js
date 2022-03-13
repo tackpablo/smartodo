@@ -16,11 +16,11 @@ const createTodo = function (todoData) {
       <div class="dropdown">
         <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content">
-        <a href="#">THINGS TO WATCH</a>
-        <a href="#">PLACES TO EAT</a>
-        <a href="#">BOOKS TO READ</a>
-        <a href="#">THINGS TO BUY</a>
-        <a href="#">MISCELLANEOUS</a>
+        <a href=# class="to-watch">THINGS TO WATCH</a>
+        <a href=#>PLACES TO EAT</a>
+        <a href=#>BOOKS TO READ</a>
+        <a href=#>THINGS TO BUY</a>
+        <a href=#>MISCELLANEOUS</a>
         </div>
       </div>
       <button class="delete_btn">Delete</button>
@@ -34,22 +34,27 @@ const createTodo = function (todoData) {
 const appendTodo = function (todo) {
   if (todo.category_id === 1) {
     $(".category1 .todolist").append(createTodo(todo));
+    $("#task-text").val("");
   }
 
   if (todo.category_id === 2) {
     $(".category2 .todolist").append(createTodo(todo));
+    $("#task-text").val("");
   }
 
   if (todo.category_id === 3) {
     $(".category3 .todolist").append(createTodo(todo));
+    $("#task-text").val("");
   }
 
   if (todo.category_id === 4) {
     $(".category4 .todolist").append(createTodo(todo));
+    $("#task-text").val("");
   }
 
   if (todo.category_id === 5) {
     $(".category5 .todolist").append(createTodo(todo));
+    $("#task-text").val("");
   }
 }
 
@@ -89,6 +94,30 @@ const loadTodos = function () {
 
           });
       });
+
+      // edit functionality
+      // testing with just to-watch for now to start incrementally, no error handling?
+      // trying to make it dry (how can I do this without repeating 5 times?)
+      $("to-watch").on("click", function () {
+
+        const itemId = $(this).parent().parent().attr("id")
+        // console.log("itemId: ", itemId)
+
+        // Is it not restful to send the itemId and then /categoryId ? That way we can obtain the category Id as well
+        $.ajax(`/smartlist/${itemId}`, {
+          //PATCH
+          method: "POST",
+          dataType: "json",
+        })
+          .then((result) => {
+            console.log("result", result)
+            // the category should be changed in the post request
+            // $("div").remove(`#${itemId}.todoitems`);
+
+
+          });
+      });
+
     })
     .catch((error) => alert(error));
 };

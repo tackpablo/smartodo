@@ -79,8 +79,10 @@ module.exports = (db) => {
   });
 
   // post request to edit a task (change category)
-  router.post("/", (req, res) => {
-    let query = `INSERT INTO todos (category_id) VALUES ($1), [todos.category_id]`;
+  router.post("/:id", (req, res) => {
+    let editId = req.params.id;
+    //todos.category_id
+    let query = `INSERT INTO todos (category_id) VALUES ($1) WHERE id = ${editId}, [todos.category_id]`;
     console.log(query);
     db.query(query)
       .then(data => {
@@ -96,4 +98,3 @@ module.exports = (db) => {
 
   return router;
 };
-
