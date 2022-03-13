@@ -23,7 +23,7 @@ const createTodo = function (todoData) {
         <a href="#">MISCELLANEOUS</a>
         </div>
       </div>
-      <button class="delete_btn">DELETE</button>
+      <button class="delete_btn">Delete</button>
     </div>
   </div>
 `;
@@ -105,10 +105,13 @@ $(document).ready(function () {
 
     // Making request for posting information to database via AJAX request
     const data = $(this).serialize();
+
+    // use the data to check if
+
     $.ajax({ method: "POST", url: "/smartlist", data })
       .then((data) => {
 
-        appendTodo(data.todo)
+        loadTodos(appendTodo(data.todo));
 
       })
       .catch((error) => alert(error));

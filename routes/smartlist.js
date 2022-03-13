@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  // get request for loading page (all data but can be changed)
+  // get request for loading page (all tasks)
   router.get("/", (req, res) => {
     let query = `SELECT todos.* FROM todos`;
     db.query(query)
@@ -22,12 +22,26 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     // API REQUEST WITH DATA
     // USE TASK req.body.task to go through API
-    let taskName = req.body.task;
+    const taskName = req.body.task.toLowerCase();
+    let category_id;
+
+    // pre-emptive sorting for certain words
+    if (taskName.includes('watch')) {
+      category_id = 1;
+    } else if (taskName.includes('eat')) {
+      category_id = 2;
+    } else if (taskName.includes('read')) {
+      category_id = 3;
+    } else if (taskName.includes('buy')) {
+      category_id = 4;
+    } else {
+      category_id = 5;
+    }
 
     const todos = {
       task: req.body.task,
-      category_id: 1,
-      user_id: req.cookies("user_id"),
+      category_id: category_id,
+      user_id: req.cookies.user_id,
       important_tasks: false
     }
 
