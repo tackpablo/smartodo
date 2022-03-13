@@ -27,7 +27,7 @@ module.exports = (db) => {
     const todos = {
       task: req.body.task,
       category_id: 1,
-      user_id: 2,
+      user_id: req.cookies("user_id"),
       important_tasks: false
     }
 

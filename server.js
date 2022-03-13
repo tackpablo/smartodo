@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -18,6 +19,9 @@ db.connect();
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
+
+// cookie parser for users
+app.use(cookieParser());
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -36,12 +40,15 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const smartlistRoutes = require("./routes/smartlist");
+const userRoutes = require("./routes/users");
+
 // const smartlistEditroutes = require("./routes/smartlist_edit");
 // const smartlistDeleteRoutes = require("./routes/smartlist_delete");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/smartlist", smartlistRoutes(db));
+app.use("/users", userRoutes());
 // app.use("/smartlist/:id", smartlistEditroutes(db));
 // app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
 // Note: mount other resources here, using the same pattern above

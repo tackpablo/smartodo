@@ -83,19 +83,19 @@ ul li:hover{
 }
 
 .category1, .category2, .category3, .category4, .category5 {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   padding-top: 0.8em;
   justify-content: center;
-  border: 0.1em inset black;
   align-items: center;
   margin-top: 1em;
   border-radius: 2em;
   width: 100%;
 }
 
-h2 {
-  padding-left: 10em;
-}
+
+
+
 
 /* TO DO TASK */
 .todo-container {
@@ -108,8 +108,8 @@ h2 {
   align-items: baseline;
   border: 0.2em solid black;
   justify-content: space-evenly;
-  width: 60%;
   border-radius: 2em;
+  width: 100%;
 }
 
 .task-name {
@@ -161,3 +161,12 @@ h2 {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.todolist {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+
