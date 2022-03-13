@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -24,6 +25,10 @@ app.use(morgan("dev"));
 
 // cookie parser for users
 app.use(cookieParser());
+
+// body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));

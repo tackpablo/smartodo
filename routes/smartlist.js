@@ -79,12 +79,19 @@ module.exports = (db) => {
   });
 
   // post request to edit a task (change category)
-  router.post("/:id", (req, res) => {
+  router.put("/:id", (req, res) => {
     let editId = req.params.id;
+    let category_id = req.body.category_id;
+    console.log("req.body:", req.body)
+    console.log("category id: ", category_id);
     //todos.category_id
-    let query = `INSERT INTO todos (category_id) VALUES ($1) WHERE id = ${editId}, [todos.category_id]`;
+    let query = `
+    UPDATE todos
+    SET category_id = $1
+    WHERE id = $2
+    `;
     console.log(query);
-    db.query(query)
+    db.query(query, [category_id, editId])
       .then(data => {
         const category = data.rows;
         res.json({ category });

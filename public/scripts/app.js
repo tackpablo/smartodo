@@ -16,11 +16,11 @@ const createTodo = function (todoData) {
       <div class="dropdown">
         <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content">
-        <a href=# class="to-watch">THINGS TO WATCH</a>
-        <a href=#>PLACES TO EAT</a>
-        <a href=#>BOOKS TO READ</a>
-        <a href=#>THINGS TO BUY</a>
-        <a href=#>MISCELLANEOUS</a>
+          <a href=# class="to-watch">THINGS TO WATCH</a>
+          <a href=# class="to-eat">PLACES TO EAT</a>
+          <a href=# class="to-read">BOOKS TO READ</a>
+          <a href=# class="to-buy">THINGS TO BUY</a>
+          <a href=# class="miscellaneous">MISCELLANEOUS</a>
         </div>
       </div>
       <button class="delete_btn">Delete</button>
@@ -96,25 +96,78 @@ const loadTodos = function () {
       });
 
       // edit functionality
-      // testing with just to-watch for now to start incrementally, no error handling?
-      // trying to make it dry (how can I do this without repeating 5 times?)
-      $("to-watch").on("click", function () {
-
-        const itemId = $(this).parent().parent().attr("id")
-        // console.log("itemId: ", itemId)
-
-        // Is it not restful to send the itemId and then /categoryId ? That way we can obtain the category Id as well
+      $(".to-watch").on("click", function () {
+        const $todoDiv = $(this).parent().parent().parent().parent();
+        const itemId = $todoDiv.attr("id");
         $.ajax(`/smartlist/${itemId}`, {
-          //PATCH
-          method: "POST",
+          method: "PUT",
+          data: JSON.stringify({category_id: 1}),
           dataType: "json",
+          contentType: 'application/json'
         })
           .then((result) => {
-            console.log("result", result)
-            // the category should be changed in the post request
-            // $("div").remove(`#${itemId}.todoitems`);
+            // console.log("result", result);
+            location.reload();
+          });
+      });
 
+      $(".to-eat").on("click", function () {
+        const $todoDiv = $(this).parent().parent().parent().parent();
+        const itemId = $todoDiv.attr("id");
+        $.ajax(`/smartlist/${itemId}`, {
+          method: "PUT",
+          data: JSON.stringify({category_id: 2}),
+          dataType: "json",
+          contentType: 'application/json'
+        })
+          .then((result) => {
+            // console.log("result", result);
+            location.reload();
+          });
+      });
 
+      $(".to-read").on("click", function () {
+        const $todoDiv = $(this).parent().parent().parent().parent();
+        const itemId = $todoDiv.attr("id");
+        $.ajax(`/smartlist/${itemId}`, {
+          method: "PUT",
+          data: JSON.stringify({category_id: 3}),
+          dataType: "json",
+          contentType: 'application/json'
+        })
+          .then((result) => {
+            // console.log("result", result);
+            location.reload();
+          });
+      });
+
+      $(".to-buy").on("click", function () {
+        const $todoDiv = $(this).parent().parent().parent().parent();
+        const itemId = $todoDiv.attr("id");
+        $.ajax(`/smartlist/${itemId}`, {
+          method: "PUT",
+          data: JSON.stringify({category_id: 4}),
+          dataType: "json",
+          contentType: 'application/json'
+        })
+          .then((result) => {
+            // console.log("result", result);
+            location.reload();
+          });
+      });
+
+      $(".miscellaneous").on("click", function () {
+        const $todoDiv = $(this).parent().parent().parent().parent();
+        const itemId = $todoDiv.attr("id");
+        $.ajax(`/smartlist/${itemId}`, {
+          method: "PUT",
+          data: JSON.stringify({category_id: 5}),
+          dataType: "json",
+          contentType: 'application/json'
+        })
+          .then((result) => {
+            // console.log("result", result);
+            location.reload();
           });
       });
 
