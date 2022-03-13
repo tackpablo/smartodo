@@ -50,7 +50,7 @@ const userRoutes = require("./routes/users");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/smartlist", smartlistRoutes(db));
-app.use("/users", userRoutes());
+app.use("/users", userRoutes(db));
 // app.use("/smartlist/:id", smartlistEditroutes(db));
 // app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
 // Note: mount other resources here, using the same pattern above
@@ -60,7 +60,14 @@ app.use("/users", userRoutes());
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index"); // need to cahnge this to new html file
+  const templateVars = {
+    // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
+    user_id: req.cookies["user_id"]
+    ? req.cookies["user_id"]
+    : null,
+  };
+
+  res.render("index", templateVars);
 });
 
 app.listen(PORT, () => {
