@@ -36,14 +36,14 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const smartlistRoutes = require("./routes/smartlist");
-const smartlistEditroutes = require("./routes/smartlist_edit");
-const smartlistDeleteRoutes = require("./routes/smartlist_delete");
+// const smartlistEditroutes = require("./routes/smartlist_edit");
+// const smartlistDeleteRoutes = require("./routes/smartlist_delete");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/smartlist", smartlistRoutes(db));
-app.use("/smartlist/:id", smartlistEditroutes(db));
-app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
+// app.use("/smartlist/:id", smartlistEditroutes(db));
+// app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page

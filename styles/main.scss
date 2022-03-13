@@ -79,16 +79,22 @@ ul li:hover{
 /* CATEGORIES */
 .category-container{
   padding: 0 10em;
+  height: 100%;
 }
 
 .category1, .category2, .category3, .category4, .category5 {
-  display: flex;
+  display: inline-block;
   padding-top: 0.8em;
   justify-content: center;
   border: 0.1em inset black;
   align-items: center;
-  margin-bottom: 6em;
+  margin-top: 1em;
   border-radius: 2em;
+  width: 100%;
+}
+
+h2 {
+  padding-left: 10em;
 }
 
 /* TO DO TASK */

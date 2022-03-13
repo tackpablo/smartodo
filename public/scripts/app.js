@@ -10,34 +10,56 @@ const createTodo = function (todoData) {
   };
 
   const $todo = `
-  <div class="todoitems">
-      <p class="task-name">${(todoData)}</p>
-      <div class="todo-options">
+  <div class="todoitems" id="${todoData.id}">
+    <p class="task-name">${escape(todoData.task)}</p>
+    <div class="todo-options">
       <div class="dropdown">
         <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content">
-        <a href="#">${(todoData)}</a>
-        <a href="#">${(todoData)}</a>
-        <a href="#">${(todoData)}</a>
-        <a href="#">${(todoData)}</a>
+        <a href="#">THINGS TO WATCH</a>
+        <a href="#">PLACES TO EAT</a>
+        <a href="#">BOOKS TO READ</a>
+        <a href="#">THINGS TO BUY</a>
+        <a href="#">MISCELLANEOUS</a>
         </div>
       </div>
-        <form id="delete-task" action="/smartlist/:id/delete" method="POST">
-        <button type="submit">DELETE</button>
-      </div>
+      <button class="delete_btn">DELETE</button>
     </div>
+  </div>
 `;
   return $todo;
 }
 
+// function to append new tasks
+const appendTodo = function (todo) {
+  if (todo.category_id === 1) {
+    $(".category1 .todolist").append(createTodo(todo));
+  }
 
-const renderTodos = function ($todos) {
-  // empties the html of any appended tweets so that the new tweets can load
-  $(".category1").empty();
-  console.log($todos)
+  if (todo.category_id === 2) {
+    $(".category2 .todolist").append(createTodo(todo));
+  }
 
-  $todos.forEach((todo) => {
-    $(".category1").append(createTodo(todo)); // prepended to post newest first
+  if (todo.category_id === 3) {
+    $(".category3 .todolist").append(createTodo(todo));
+  }
+
+  if (todo.category_id === 4) {
+    $(".category4 .todolist").append(createTodo(todo));
+  }
+
+  if (todo.category_id === 5) {
+    $(".category5 .todolist").append(createTodo(todo));
+  }
+}
+
+// for every task, append to correct category
+const renderTodos = function (todos) {
+  // empties the html of any appended tasks so that the new tasks can load
+  $(".todolist").html("");
+
+  todos.forEach((todo) => {
+    appendTodo(todo)
   });
 };
 
@@ -49,6 +71,24 @@ const loadTodos = function () {
   })
     .then((result) => {
       renderTodos(result.todos);
+
+      // delete functionality
+      $(".delete_btn").on("click", function () {
+
+        const itemId = $(this).parent().parent().attr("id")
+        // console.log("itemId: ", itemId)
+
+        $.ajax(`/smartlist/${itemId}`, {
+          method: "DELETE",
+          dataType: "json",
+        })
+          .then((result) => {
+            // console.log("result", result)
+
+            $("div").remove(`#${itemId}.todoitems`);
+
+          });
+      });
     })
     .catch((error) => alert(error));
 };
@@ -64,10 +104,12 @@ $(document).ready(function () {
     event.preventDefault();
 
     // Making request for posting information to database via AJAX request
+    const data = $(this).serialize();
     $.ajax({ method: "POST", url: "/smartlist", data })
-      .then(() => {
+      .then((data) => {
 
-        loadTodos();
+        appendTodo(data.todo)
+
       })
       .catch((error) => alert(error));
   });
