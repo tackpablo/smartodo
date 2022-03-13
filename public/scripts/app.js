@@ -1,5 +1,4 @@
 // Client facing scripts here
-
 // create element to inject into index.ejs
 const createTodo = function (todoData) {
   // Escape function that prevents cross script injections. Only used on data that is user submitted
@@ -132,6 +131,23 @@ $(document).ready(function () {
   $form.submit(function (event) {
     event.preventDefault();
 
+    const formValue = $form.val();
+
+    // MOVIE API REQUEST
+    var myurl = `https://ott-details.p.rapidapi.com/search?title=${formValue}`;
+         $.ajax({
+            url: myurl,
+            headers: {
+                'x-rapidapi-host': 'ott-details.p.rapidapi.com',
+                'x-rapidapi-key': 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
+              },
+            method: 'GET',
+            dataType: 'json',
+            success: function(data){
+                console.log('success: '+data);
+            }
+         });
+
     // Making request for posting information to database via AJAX request
     const data = $(this).serialize();
 
@@ -146,3 +162,5 @@ $(document).ready(function () {
       .catch((error) => alert(error));
   });
 });
+
+
