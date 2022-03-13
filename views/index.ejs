@@ -22,7 +22,7 @@
     <nav>
       <% if (user_id) { %>
       <ul>
-        <li>Yuki</li>
+        <li>${user_name}</li>
         <form id="logout" action="/users/logout" method="POST">
           <button >Logout</button>
         </form>

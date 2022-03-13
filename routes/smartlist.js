@@ -57,12 +57,12 @@ module.exports = (db) => {
       important_tasks: false
     }
 
-    let query = `INSERT INTO todos (task, category_id, user_id, important_tasks) VALUES ('${todos.task}', ${todos.category_id}, ${todos.user_id}, ${todos.important_tasks}) RETURNING *;`;
+    let query = `INSERT INTO todos (task, category_id, user_id, important_tasks) VALUES ($1, $2, $3, $4) RETURNING *;`;
 
-    db.query(query)
+    db.query(query, [todos.task, todos.category_id, todos.user_id, todos.important_tasks])
       .then(data => {
         const todo = data.rows[0];
-        console.log(todo)
+        // console.log(todo)
         res.json({ todo });
       })
       .catch(err => {
