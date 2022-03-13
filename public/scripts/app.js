@@ -1,4 +1,5 @@
 // Client facing scripts here
+
 // create element to inject into index.ejs
 const createTodo = function (todoData) {
   // Escape function that prevents cross script injections. Only used on data that is user submitted
@@ -185,21 +186,38 @@ $(document).ready(function () {
     event.preventDefault();
 
     const formValue = $form.val();
+    let title;
 
     // MOVIE API REQUEST
-    var myurl = `https://ott-details.p.rapidapi.com/search?title=${formValue}`;
-         $.ajax({
-            url: myurl,
-            headers: {
-                'x-rapidapi-host': 'ott-details.p.rapidapi.com',
-                'x-rapidapi-key': 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
-              },
-            method: 'GET',
-            dataType: 'json',
-            success: function(data){
-                console.log('success: '+data);
-            }
-         });
+    // let myurl = `https://ott-details.p.rapidapi.com/search?title=${formValue}`;
+    //      $.ajax({
+    //         url: myurl,
+    //         headers: {
+    //             'x-rapidapi-host': 'ott-details.p.rapidapi.com',
+    //             'x-rapidapi-key': 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
+    //           },
+    //         method: 'GET',
+    //         dataType: 'json',
+    //         success: function(data){
+    //           const JSONprice = JSON.stringify(data);
+    //             console.log('success: ', JSONprice);
+    //         }
+    //      });
+
+    const settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://ott-details.p.rapidapi.com/search?title=Endgame&page=1",
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "ott-details.p.rapidapi.com",
+        "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      }
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
 
     // Making request for posting information to database via AJAX request
     const data = $(this).serialize();

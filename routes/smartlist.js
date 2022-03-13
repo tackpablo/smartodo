@@ -7,7 +7,7 @@ module.exports = (db) => {
 
     if (!req.cookies["user_id"]) {
       res.status(401).send("You need to log in to do that!");
-      res.redirect('/');
+      return res.redirect('/');
     }
 
     let query = `SELECT todos.* FROM todos`;
@@ -38,14 +38,14 @@ module.exports = (db) => {
     let category_id;
 
     // pre-emptive sorting for certain words
-    if (taskName.includes('buy')) {
-      category_id = 4;
+    if (taskName.includes('watch')) {
+      category_id = 1;
     } else if (taskName.includes('eat')) {
       category_id = 2;
     } else if (taskName.includes('read')) {
       category_id = 3;
-    } else if (taskName.includes('watch')) {
-      category_id = 1;
+    } else if (taskName.includes('buy')) {
+      category_id = 4;
     } else {
       category_id = 5;
     }
