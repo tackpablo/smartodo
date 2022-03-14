@@ -39,18 +39,30 @@ module.exports = (db) => {
     // USE TASK req.body.task to go through API
     const taskName = req.body.textVal.toLowerCase();
     const apiResults = req.body.apiResult;
+    const movieLength = apiResults[0];
+    const eatLength = apiResults[1];
+    const booksLength = apiResults[2];
+    const buyLength = apiResults[3];
+    const maxLength = Math.max(...apiResults);
+    console.log("maxLength: ", maxLength)
+
+
     console.log("taskName: ", taskName)
     console.log("apiResults: ", apiResults)
 
     // pre-emptive sorting for certain words
-    if (taskName.includes('watch')) {
+    if ((taskName.includes('watch') &&  (movieLength > 0))) {
       category_id = 1;
-    } else if (taskName.includes('eat')) {
+    } else if ((taskName.includes('eat') && (eatLength > 0))) {
       category_id = 2;
-    } else if (taskName.includes('read')) {
+    } else if ((taskName.includes('read')&& (booksLength > 0))) {
       category_id = 3;
-    } else if (taskName.includes('buy')) {
+    } else if ((taskName.includes('buy')&& (buyLength > 0))) {
       category_id = 4;
+    } else if (maxLength) {
+      const categoryFound = apiResults.indexOf(maxLength) + 1;
+      console.log("categoryFound: ",categoryFound);
+      category_id = categoryFound;
     } else {
       category_id = 5;
     }

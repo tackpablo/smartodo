@@ -288,13 +288,14 @@ const eatAPI = function(task) {
   })
 }
 
-  Promise.all([movieAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal), eatAPI(encodedTextVal)]).then((apiResult) => {
+  Promise.all([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal)]).then((apiResult) => {
     console.log(apiResult)
     // Making request for posting information to database via AJAX request
     $.ajax({ method: "POST", url: "/smartlist", data: {
       apiResult,
       textVal
     }})
+    .catch((error) => alert(error))
       .then((data) => {
 
         loadTodos(appendTodo(data.todo));
