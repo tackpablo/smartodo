@@ -204,9 +204,9 @@ $(document).ready(function () {
     event.preventDefault();
 
     let textVal = $('#task-text').val();
-    let encodedTextVal = encodeURI(textVal)
-    // console.log(textVal)
-    // console.log(encodedTextVal)
+    let encodedTextVal = encodeURI(textVal);
+    console.log("textVal: ", textVal)
+    console.log("encodedTextVal: ", encodedTextVal)
 
 // MOVIE API REQUEST - OTT MOVIE API - WORKS
 const movieAPI = function(task) {
@@ -221,9 +221,11 @@ const movieAPI = function(task) {
     }
   };
 
-  $.ajax(settings).done(function (response) {
-    return console.log("movieAPI length: ",response["results"].length);
-  });
+  return $.ajax(settings).then(function (response) {
+    let movieLength = response["results"].length;
+    console.log("movieAPI length: ", response["results"].length);
+    return movieLength;
+  })
 }
 
 // BOOKS API REQUEST - HAPI BOOKS API - WORKS
@@ -239,9 +241,11 @@ const booksAPI = function(task) {
     }
   };
 
-  $.ajax(settings).done(function (response) {
+  return $.ajax(settings).then(function (response) {
+    let booksLength = response.length;
     console.log("booksAPI length: ", response.length);
-  });
+    return booksLength;
+  })
 }
 
 // BUYING API REQUEST - AMAZON API - WORKS
@@ -257,10 +261,12 @@ const buyAPI = function(task) {
     }
   };
 
-    $.ajax(settings).done(function (response) {
-      return console.log("buyAPI length: ", response.docs.length);
-    });
-}
+  return $.ajax(settings).then(function (response) {
+      let buyLength = response.docs.length;
+      console.log("buyAPI length: ", response.docs.length);
+      return buyLength;
+  })
+};
 
 // EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
 const eatAPI = function(task) {
@@ -275,23 +281,28 @@ const eatAPI = function(task) {
     }
   };
 
-  $.ajax(settings).done(function (response) {
-    console.log("eatAPI length: ", response.hints.length);
-  });
+  return $.ajax(settings).then(function (response) {
+      let eatLength = response.hints.length;
+      console.log("eatAPI length: ", response.hints.length);
+      return (eatLength);
+  })
 }
 
-  Promise.Race([movieAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal), eatAPI(encodedTextVal)])
-
+  Promise.all([movieAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal), eatAPI(encodedTextVal)]).then((apiResult) => {
+    console.log(apiResult)
     // Making request for posting information to database via AJAX request
-    const data = $(this).serialize();
-    $.ajax({ method: "POST", url: "/smartlist", data })
+    $.ajax({ method: "POST", url: "/smartlist", data: {
+      apiResult,
+      textVal
+    }})
       .then((data) => {
 
         loadTodos(appendTodo(data.todo));
 
       })
       .catch((error) => alert(error));
-  });
+    });
+  })
 });
 
 

@@ -63,6 +63,12 @@ app.use("/users", userRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// app.get("/:id", (req, res) => {
+//   let id = req.params.id;
+//   res.cookies["user_id"] = id;
+//   res.redirect('/')
+// });
+
 app.get("/", (req, res) => {
   const templateVars = {
     // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie

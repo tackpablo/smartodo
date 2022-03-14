@@ -37,8 +37,10 @@ module.exports = (db) => {
 
     // API REQUEST WITH DATA
     // USE TASK req.body.task to go through API
-    const taskName = req.body.task.toLowerCase();
-    // console.log(taskName)
+    const taskName = req.body.textVal.toLowerCase();
+    const apiResults = req.body.apiResult;
+    console.log("taskName: ", taskName)
+    console.log("apiResults: ", apiResults)
 
     // pre-emptive sorting for certain words
     if (taskName.includes('watch')) {
@@ -51,11 +53,10 @@ module.exports = (db) => {
       category_id = 4;
     } else {
       category_id = 5;
-
     }
 
     const todos = {
-      task: req.body.task,
+      task: req.body.textVal,
       category_id: category_id,
       user_id: req.cookies.user_id,
       important_tasks: false
