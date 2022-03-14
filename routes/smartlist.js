@@ -1,6 +1,9 @@
 const express = require('express');
 const router  = express.Router();
 
+// API middleware
+const {movieAPI, booksAPI, buyAPI, eatAPI} = require('../api/api')
+
 module.exports = (db) => {
   // get request for loading page (all tasks)
   router.get("/", (req, res) => {
@@ -35,7 +38,7 @@ module.exports = (db) => {
     // API REQUEST WITH DATA
     // USE TASK req.body.task to go through API
     const taskName = req.body.task.toLowerCase();
-    let category_id;
+    // console.log(taskName)
 
     // pre-emptive sorting for certain words
     if (taskName.includes('watch')) {
@@ -48,6 +51,39 @@ module.exports = (db) => {
       category_id = 4;
     } else {
       category_id = 5;
+
+      // attempts at calling API
+      // const movieAPI = function(task) {
+      //   const settings = {
+      //     "async": true,
+      //     "crossDomain": true,
+      //     "url": "https://ott-details.p.rapidapi.com/search?title=Endgame&page=1",
+      //     "method": "GET",
+      //     "headers": {
+      //       "x-rapidapi-host": "ott-details.p.rapidapi.com",
+      //       "x-rapidapi-key": process.env.MOVIE_API_KEY
+      //     }
+      //   };
+
+      //   $.ajax(settings).done(function (response) {
+      //     return console.log(response);
+      //   });
+      // }
+      // movieAPI(taskName);
+
+      // movieAPI(taskName).then((result) => {
+      //   return result;
+      // })
+
+      // const printmovieAPI = () => {
+      //   movieAPI.then((result) => {
+      //     return result;
+      //   });
+      // };
+
+      // printmovieAPI()
+      // movieAPI, booksAPI, buyAPI, eatAPI
+
     }
 
     const todos = {

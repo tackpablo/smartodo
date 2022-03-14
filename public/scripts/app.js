@@ -1,5 +1,21 @@
 // Client facing scripts here
 
+// geolocation
+if ("geolocation" in navigator){ //check Geolocation available
+	//things to do
+}else{
+	console.log("Geolocation not available!");
+}
+
+if ("geolocation" in navigator){ //check geolocation available
+	//try to get user current location using getCurrentPosition() method
+	navigator.geolocation.getCurrentPosition(function(position){
+		console.log("Found your location \nLat : "+position.coords.latitude+" \nLong :"+ position.coords.longitude);
+		});
+}else{
+	console.log("Browser doesn't support geolocation!");
+}
+
 // create element to inject into index.ejs
 const createTodo = function (todoData) {
   // Escape function that prevents cross script injections. Only used on data that is user submitted
@@ -175,6 +191,7 @@ const loadTodos = function () {
     .catch((error) => alert(error));
 };
 
+
 // Signals the DOM is ready for manipulation
 $(document).ready(function () {
 
@@ -182,48 +199,12 @@ $(document).ready(function () {
 
   // Form Submission Event Handler - prevent default of reloading page
   const $form = $("#add-task");
+  // addition of new tasks
   $form.submit(function (event) {
     event.preventDefault();
 
-    const formValue = $form.val();
-    let title;
-
-    // MOVIE API REQUEST
-    // let myurl = `https://ott-details.p.rapidapi.com/search?title=${formValue}`;
-    //      $.ajax({
-    //         url: myurl,
-    //         headers: {
-    //             'x-rapidapi-host': 'ott-details.p.rapidapi.com',
-    //             'x-rapidapi-key': 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
-    //           },
-    //         method: 'GET',
-    //         dataType: 'json',
-    //         success: function(data){
-    //           const JSONprice = JSON.stringify(data);
-    //             console.log('success: ', JSONprice);
-    //         }
-    //      });
-
-    const settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "https://ott-details.p.rapidapi.com/search?title=Endgame&page=1",
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "ott-details.p.rapidapi.com",
-        "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
-      }
-    };
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
-
     // Making request for posting information to database via AJAX request
     const data = $(this).serialize();
-
-    // use the data to check if
-
     $.ajax({ method: "POST", url: "/smartlist", data })
       .then((data) => {
 

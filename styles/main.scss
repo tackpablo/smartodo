@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   display: block;
   justify-content: center;
@@ -237,4 +241,28 @@ a {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
+}
+
+/* MAIN INDEX PAGE */
+.index-container {
+  margin-top: 2em;
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.index-slogan1 {
+  font-size: 5em;
+  padding-left: 1em;
+}
+
+.index-slogan2 {
+  font-size: 5em;
+  padding-left: 1em;
+}
+
+.index-slogan3 {
+  padding-left: 10em;
 }

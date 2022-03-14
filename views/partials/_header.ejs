@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Smartodo</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+
+<!-- NAV BAR -->
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <img src="https://www.graphicsprings.com/filestorage/stencils/ed8fe22e267f227c5be2d9c9a6b40917.png?width=500&height=500" alt="smartodo logo" width="130"/>
+      </div>
+    <nav>
+      <% if (user_id) { %>
+      <ul>
+        <li>${user_name}</li>
+        <form id="logout" action="/users/logout" method="POST">
+          <button >Logout</button>
+        </form>
+      </ul>
+      <% } else { %>
+        <ul>
+          <form id="login" action="/users/login" method="POST">
+            <button>Login</button>
+          </form>
+        </ul>
+      </nav>
+      <% } %>
+  </div>
+</header>
