@@ -280,7 +280,7 @@ const eatAPI = function(task) {
   });
 }
 
-  Promise.allSettled([movieAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal), eatAPI(encodedTextVal)])
+  Promise.Race([movieAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal), eatAPI(encodedTextVal)])
 
     // Making request for posting information to database via AJAX request
     const data = $(this).serialize();
