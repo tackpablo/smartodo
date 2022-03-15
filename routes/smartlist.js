@@ -36,22 +36,21 @@ module.exports = (db) => {
     }
 
     // API REQUEST WITH DATA
-    // USE TASK req.body.task to go through API
     const taskName = req.body.textVal.toLowerCase();
     const apiResults = req.body.apiResult;
     const movieLength = apiResults[0];
     const eatLength = apiResults[1];
     const booksLength = apiResults[2];
     const buyLength = apiResults[3];
-    const maxLength = Math.max(...apiResults);
+    const apiResultsNum = apiResults.map(Number)
+    const maxLength = Math.max(...apiResultsNum);
     console.log("maxLength: ", maxLength)
-
-
     console.log("taskName: ", taskName)
     console.log("apiResults: ", apiResults)
+    console.log("apiResultsNum: ", apiResultsNum)
 
     // pre-emptive sorting for certain words
-    if ((taskName.includes('watch') &&  (movieLength > 0))) {
+    if ((taskName.includes('watch') && (movieLength > 0))) {
       category_id = 1;
     } else if ((taskName.includes('eat') && (eatLength > 0))) {
       category_id = 2;
@@ -60,7 +59,7 @@ module.exports = (db) => {
     } else if ((taskName.includes('buy')&& (buyLength > 0))) {
       category_id = 4;
     } else if (maxLength) {
-      const categoryFound = apiResults.indexOf(maxLength) + 1;
+      const categoryFound = (apiResultsNum.indexOf(maxLength)) + 1;
       console.log("categoryFound: ",categoryFound);
       category_id = categoryFound;
     } else {

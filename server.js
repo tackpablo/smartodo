@@ -53,7 +53,7 @@ const userRoutes = require("./routes/users");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/smartlist", smartlistRoutes(db));
+app.use("/api/smartlist", smartlistRoutes(db));
 app.use("/users", userRoutes(db));
 // app.use("/smartlist/:id", smartlistEditroutes(db));
 // app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));

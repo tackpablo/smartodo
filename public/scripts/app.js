@@ -208,24 +208,24 @@ $(document).ready(function () {
     console.log("textVal: ", textVal)
     console.log("encodedTextVal: ", encodedTextVal)
 
-// MOVIE API REQUEST - OTT MOVIE API - WORKS
+// MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
 const movieAPI = function(task) {
   const settings = {
     "async": true,
     "crossDomain": true,
-    "url": `https://ott-details.p.rapidapi.com/search?title=${task}&page=1`,
+    "url": `https://advanced-movie-search.p.rapidapi.com/search/movie?query=${task}&page=1`,
     "method": "GET",
     "headers": {
-      "x-rapidapi-host": "ott-details.p.rapidapi.com",
-      "x-rapidapi-key": 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
+      "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
+      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
     }
   };
 
   return $.ajax(settings).then(function (response) {
-    let movieLength = response["results"].length;
-    console.log("movieAPI length: ", response["results"].length);
+    let movieLength = response.results.length;
+    console.log("movieAPI length: ", response.results.length);
     return movieLength;
-  })
+  });
 }
 
 // BOOKS API REQUEST - HAPI BOOKS API - WORKS
@@ -297,7 +297,7 @@ const eatAPI = function(task) {
     }})
     .catch((error) => alert(error))
       .then((data) => {
-
+        console.log(data)
         loadTodos(appendTodo(data.todo));
 
       })
