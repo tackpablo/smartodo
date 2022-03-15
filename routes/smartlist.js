@@ -11,7 +11,7 @@ module.exports = (db) => {
 
     if (!req.cookies["user_id"]) {
       res.status(401).send("You need to log in to do that!");
-      return res.redirect('/');
+      return res.redirect('/users/login');
     }
 
     let query = `SELECT todos.* FROM todos`;

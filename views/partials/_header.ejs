@@ -23,14 +23,17 @@
     <nav>
       <% if (user_id) { %>
       <ul>
-        <li>${user_name}</li>
-        <form id="logout" action="/users/logout" method="POST">
+        <li>${user_email}</li>
+        <form id="logout" action="/users/logout" method="GET">
           <button >Logout</button>
         </form>
       </ul>
       <% } else { %>
-        <ul>
-          <form id="login" action="/users/login" method="POST">
+        <ul class="nav-options">
+          <form id="register" action="/users/register" method="GET">
+            <button>Register</button>
+          </form>
+          <form id="login" action="/users/login" method="GET">
             <button>Login</button>
           </form>
         </ul>

@@ -1,44 +1,59 @@
 <%- include('partials/_header') %>
 
-<!-- INPUT TEXT -->
-<section class="input-container">
-  <form id="add-task" action="/smartlist" method="POST">
-    <label for="task">TASK TO ADD</label>
-    <textarea name="task" id="task-text" placeholder="Start typing here..."></textarea>
-    <button type="submit">ADD</button>
-  </form>
-</section>
+  <body>
 
-<!-- CATEGORIES -->
-<section class="category-container">
-  <div class="category-wrapper1">
-    <div class="category1">
-      <h2>THINGS TO WATCH</h2>
-      <div class="todolist"></div>
-    </div>
+  <!-- TIME CLOCK -->
+  <div class="clock-container">
+    <div class="digital-clock">00:00:00</div>
   </div>
-  <div class="category-wrapper2">
-  <div class="category2">
-    <h2>PLACES TO EAT</h2>
-    <div class="todolist"></div>
-  </div>
-  </div>
-  <div class="category-wrapper3">
-  <div class="category3">
-    <h2>BOOKS TO READ</h2>
-    <div class="todolist"></div>
-  </div>
-  </div>
-  <div class="category-wrapper4">
-  <div class="category4">
-    <h2>THINGS TO BUY</h2>
-    <div class="todolist"></div>
-  </div>
-  </div>
-  <div class="category-wrapper5">
-  <div class="category5">
-    <h2>MISCELLANEOUS</h2>
-    <div class="todolist"></div>
-  </div>
-  </div>
-</section>
+
+  <main>
+    <!-- INPUT TEXT -->
+    <section class="input-container">
+      <form id="add-task" action="/smartlist" method="POST">
+        <label for="task">TASK TO ADD</label>
+        <textarea name="task" id="task-text" placeholder="Start typing here..."></textarea>
+        <button type="submit">ADD</button>
+      </form>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="category-container">
+      <div class="category-wrapper1">
+        <div class="category1">
+          <h2>THINGS TO WATCH</h2>
+          <div class="todolist"></div>
+        </div>
+      </div>
+      <div class="category-wrapper2">
+      <div class="category2">
+        <h2>PLACES TO EAT</h2>
+        <div class="todolist"></div>
+      </div>
+      </div>
+      <div class="category-wrapper3">
+      <div class="category3">
+        <h2>BOOKS TO READ</h2>
+        <div class="todolist"></div>
+      </div>
+      </div>
+      <div class="category-wrapper4">
+      <div class="category4">
+        <h2>THINGS TO BUY</h2>
+        <div class="todolist"></div>
+      </div>
+      </div>
+      <div class="category-wrapper5">
+      <div class="category5">
+        <h2>MISCELLANEOUS</h2>
+        <div class="todolist"></div>
+      </div>
+      </div>
+    </section>
+
+  <!-- MODAL -->
+  <div class="modal"><!-- Place at bottom of page --></div>
+
+    </main>
+  </body>
+

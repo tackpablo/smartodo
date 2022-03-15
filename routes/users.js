@@ -26,36 +26,39 @@ module.exports = (db) => {
 
   // post request for logging a user in
   router.post("/login", (req, res) => {
-    // console.log("req.body: ", req.body)
+    console.log(req.body)
 
-    // const users = {
-    //   email: req.body.login_email,
-    //   password: req.body.login_password
-    // }
+    const user = {
+      password: req.body.login_password,
+      email: req.body.login_email
+    }
 
-    // console.log("users: ", users)
+    let query = `SELECT * FROM users WHERE users.email = $1 AND users.password = $2;`;
 
-    // let query = `SELECT users.email, users.password FROM users WHERE email = $1 AND password = $2 RETURNING *;`;
+    db.query(query, [user.email, user.password])
+    .then(data => {
+      const user = data.rows[0];
+      console.log("user: ", user)
+      res.cookie('user_id', user.id);
 
-    // db.query(query, [users.email, users.password])
-    // .then(data => {
-    //   const user = data.rows[0];
-    //   // console.log("user: ", user);
-    //   // console.log("user: ", user)
-    //   res.cookie('user_id', user.email);
-    //   res.redirect('/')
-    // })
-    // .catch(err => {
-    //   res
-    //     .status(500)
-    //     .json({ error: err.message });
-    // });
-    res.cookie('user_id', 2);
-    res.redirect('/');
+      const templateVars = {
+        // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
+        user_id: req.cookies["user_id"]
+        ? req.cookies["user_id"]
+        : null,
+        user_email: user.email
+      };
+      res.render('smartlist', templateVars)
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   // post request for logging a user out
-  router.post("/logout", (req, res) => {
+  router.get("/logout", (req, res) => {
     res.clearCookie("user_id");
     res.redirect('/');
   });
