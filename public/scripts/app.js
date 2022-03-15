@@ -223,8 +223,20 @@ function clockUpdate() {
 //time-related message
 function timeMessage() {
   var date = new Date();
-  var hr = ndate.getHours();
-
+  var hr = date.getHours();
+  if (hr < 12)
+	 {
+        greet = 'Good Morning';
+		format='AM';
+		}
+    else if (hr >= 12 && hr <= 17)
+	{
+        greet = 'Good Afternoon';
+		format='PM';
+		}
+    else if (hr >= 17 && hr <= 24)
+        greet = 'Good Evening';
+  $('.time-msg').text(greet)
 }
 
 
@@ -246,6 +258,9 @@ $(document).on({
  // time clock
  clockUpdate();
  setInterval(clockUpdate, 1000);
+
+ //time-dependent-msg
+ timeMessage();
 
   // Form Submission Event Handler - prevent default of reloading page
   const $form = $("#add-task");
