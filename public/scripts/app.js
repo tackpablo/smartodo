@@ -191,11 +191,54 @@ const loadTodos = function () {
     .catch((error) => alert(error));
 };
 
+// time clock
+function clockUpdate() {
+  var date = new Date();
+  $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
+  function addZero(x) {
+    if (x < 10) {
+      return x = '0' + x;
+    } else {
+      return x;
+    }
+  }
+
+  function twelveHour(x) {
+    if (x > 12) {
+      return x = x - 12;
+    } else if (x == 0) {
+      return x = 12;
+    } else {
+      return x;
+    }
+  }
+
+  var h = addZero(twelveHour(date.getHours()));
+  var m = addZero(date.getMinutes());
+  var s = addZero(date.getSeconds());
+
+  $('.digital-clock').text(h + ':' + m + ':' + s)
+}
+
+
 
 // Signals the DOM is ready for manipulation
 $(document).ready(function () {
 
   loadTodos();
+
+// modal
+$body = $("body");
+
+$(document).on({
+  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStop: function() { $body.removeClass("loading"); }
+});
+
+
+ // time clock
+ clockUpdate();
+ setInterval(clockUpdate, 1000);
 
   // Form Submission Event Handler - prevent default of reloading page
   const $form = $("#add-task");

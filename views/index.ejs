@@ -21,14 +21,14 @@
       </div>
     <nav>
       <% if (user_id) { %>
-      <ul>
+      <ul class="nav-options">
         <li>${user_name}</li>
         <form id="logout" action="/users/logout" method="POST">
           <button >Logout</button>
         </form>
       </ul>
       <% } else { %>
-        <ul>
+        <ul class="nav-options">
           <form id="login" action="/users/login" method="POST">
             <button>Login</button>
           </form>
@@ -39,6 +39,11 @@
 </header>
 
 <body>
+
+<!-- TIME CLOCK -->
+<div class="clock-container">
+  <div class="digital-clock">00:00:00</div>
+</div>
 
 <!-- MAIN INDEX PAGE -->
 <!-- <div class="index-container">
@@ -144,6 +149,9 @@
   </div>
 </form>
 <% } %>
+
+<!-- MODAL -->
+<div class="modal"><!-- Place at bottom of page --></div>
 
 <!-- TASK -->
 <!-- <section class="todo-container">

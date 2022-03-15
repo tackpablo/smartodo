@@ -60,8 +60,8 @@ nav{float:right;}
 
 .logo img{
   float:left;
-  width: 48px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
   display: inline-flex;
 }
 
@@ -78,6 +78,13 @@ ul button {
 
 ul li:hover{
   color:orange;
+}
+
+.nav-options {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
 }
 
 /* CATEGORIES */
@@ -104,12 +111,14 @@ ul li:hover{
 }
 
 .todoitems {
+  font-size: 1.5em;
   display: flex;
   align-items: baseline;
-  border: 0.2em solid black;
+  border: 0.1em solid black;
   justify-content: space-evenly;
   border-radius: 2em;
   width: 100%;
+  margin-bottom: 0.4px;
 }
 
 .task-name {
@@ -266,3 +275,58 @@ a {
 .index-slogan3 {
   padding-left: 10em;
 }
+
+/* MODAL */
+.modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  url('http://i.stack.imgur.com/FhHRx.gif')
+  50% 50%
+  no-repeat;
+}
+
+/* When the body has the loading class, we turn
+ the scrollbar off with overflow:hidden */
+body.loading .modal {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+ modal element will be visible */
+body.loading .modal {
+  display: block;
+}
+
+/* TIME CLOCK */
+.clock-container {
+  display: flex;
+  justify-content: center;
+  padding: 3em 0;
+}
+
+@font-face {
+  font-family: 'DIGITAL';
+  src: url('https://cssdeck.com/uploads/resources/fonts/digii/DS-DIGII.TTF');
+}
+
+.digital-clock {
+  font-size: 3em;
+  margin: auto;
+  position: absolute;
+  width: 5em;
+  height: 1.2em;
+  color: #ffffff;
+  border: 2px solid #999;
+  border-radius: 4px;
+  text-align: center;
+  background: linear-gradient(90deg, #000, #555);
+}
+
+
+
