@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const APIKEY = process.env.API_KEY;
+
 // MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
 const movieAPI = function(task) {
   const settings = {
@@ -9,7 +11,7 @@ const movieAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": APIKEY
     }
   };
 
@@ -29,7 +31,7 @@ const booksAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "hapi-books.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": APIKEY
     }
   };
 
@@ -49,7 +51,7 @@ const buyAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "amazon24.p.rapidapi.com",
-      "x-rapidapi-key": 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
+      "x-rapidapi-key": APIKEY
     }
   };
 
@@ -69,7 +71,7 @@ const eatAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "edamam-food-and-grocery-database.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": APIKEY
     }
   };
 

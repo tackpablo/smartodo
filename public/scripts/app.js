@@ -86,7 +86,7 @@ const renderTodos = function (todos) {
 
 // Loads todos onto browser via AJAX request
 const loadTodos = function () {
-  $.ajax("/smartlist", {
+  $.ajax("/api/smartlist", {
     method: "GET",
     dataType: "json",
   })
@@ -99,7 +99,7 @@ const loadTodos = function () {
         const itemId = $(this).parent().parent().attr("id")
         // console.log("itemId: ", itemId)
 
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "DELETE",
           dataType: "json",
         })
@@ -115,7 +115,7 @@ const loadTodos = function () {
       $(".to-watch").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 1}),
           dataType: "json",
@@ -130,7 +130,7 @@ const loadTodos = function () {
       $(".to-eat").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 2}),
           dataType: "json",
@@ -145,7 +145,7 @@ const loadTodos = function () {
       $(".to-read").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 3}),
           dataType: "json",
@@ -160,7 +160,7 @@ const loadTodos = function () {
       $(".to-buy").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 4}),
           dataType: "json",
@@ -175,7 +175,7 @@ const loadTodos = function () {
       $(".miscellaneous").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
-        $.ajax(`/smartlist/${itemId}`, {
+        $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 5}),
           dataType: "json",
@@ -291,7 +291,7 @@ const eatAPI = function(task) {
   Promise.all([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal)]).then((apiResult) => {
     console.log(apiResult)
     // Making request for posting information to database via AJAX request
-    $.ajax({ method: "POST", url: "/smartlist", data: {
+    $.ajax({ method: "POST", url: "/api/smartlist", data: {
       apiResult,
       textVal
     }})

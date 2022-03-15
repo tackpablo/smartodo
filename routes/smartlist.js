@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
+
 // API middleware
 const {movieAPI, booksAPI, buyAPI, eatAPI} = require('../api/api')
 
@@ -34,6 +35,13 @@ module.exports = (db) => {
       res.status(401).send("You need to log in to do that!");
       return;
     }
+
+    // let encodedTextVal = encodeURI(req.body.textVal);
+    // Promise.all([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal)]).then((apiResult) => {
+    //   console.log(apiResult)
+    //   // Making request for posting information to database via AJAX request
+
+    // })
 
     // API REQUEST WITH DATA
     const taskName = req.body.textVal.toLowerCase();
