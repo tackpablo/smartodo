@@ -24,7 +24,15 @@ form label {
   display: flex;
   justify-content: center;
   color:purple;
+  padding-bottom: 15px;
+  font-size: 40px;
+  font-family: sans-serif;
 }
+
+label.welcome {
+  font-family: fantasy;
+}
+
 
 .input-container {
   padding-top: 2em;
