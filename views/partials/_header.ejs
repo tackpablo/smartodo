@@ -23,21 +23,22 @@
     <nav>
       <% if (user_id) { %>
       <ul>
-        <li>${user_email}</li>
+        <!-- <li>${user_email}</li> -->
         <form id="logout" action="/users/logout" method="GET">
-          <button >Logout</button>
+          <button class="btn_style">Logout</button>
         </form>
       </ul>
       <% } else { %>
         <ul class="nav-options">
           <form id="register" action="/users/register" method="GET">
-            <button>Register</button>
+            <button class="btn_style bouncy" style="animation-delay:0.07s">Register</button>
           </form>
           <form id="login" action="/users/login" method="GET">
-            <button>Login</button>
+            <button class="btn_style bouncy" style="animation-delay:0.14s">Login</button>
           </form>
         </ul>
       </nav>
       <% } %>
   </div>
 </header>
+
