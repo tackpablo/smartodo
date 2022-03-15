@@ -188,7 +188,7 @@ const loadTodos = function () {
       });
 
     })
-    .catch((error) => alert(error));
+    // .catch((error) => );
 };
 
 // time clock
