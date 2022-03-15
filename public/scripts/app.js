@@ -261,6 +261,7 @@ $(document).on({
 
  //time-dependent-msg
  timeMessage();
+ setInterval(timeMessage, 1000);
 
   // Form Submission Event Handler - prevent default of reloading page
   const $form = $("#add-task");
