@@ -71,7 +71,7 @@ module.exports = (db) => {
       console.log("categoryFound: ",categoryFound);
       category_id = categoryFound;
     } else {
-      category_id = 5;
+      category_id = 4;
     }
 
     const todos = {

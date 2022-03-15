@@ -36,7 +36,6 @@ const createTodo = function (todoData) {
           <a href=# class="to-eat">PLACES TO EAT</a>
           <a href=# class="to-read">BOOKS TO READ</a>
           <a href=# class="to-buy">THINGS TO BUY</a>
-          <a href=# class="miscellaneous">MISCELLANEOUS</a>
         </div>
       </div>
       <button class="delete_btn">Delete</button>
@@ -65,11 +64,6 @@ const appendTodo = function (todo) {
 
   if (todo.category_id === 4) {
     $(".category4 .todolist").append(createTodo(todo));
-    $("#task-text").val("");
-  }
-
-  if (todo.category_id === 5) {
-    $(".category5 .todolist").append(createTodo(todo));
     $("#task-text").val("");
   }
 }
@@ -171,22 +165,6 @@ const loadTodos = function () {
             location.reload();
           });
       });
-
-      $(".miscellaneous").on("click", function () {
-        const $todoDiv = $(this).parent().parent().parent().parent();
-        const itemId = $todoDiv.attr("id");
-        $.ajax(`/api/smartlist/${itemId}`, {
-          method: "PUT",
-          data: JSON.stringify({category_id: 5}),
-          dataType: "json",
-          contentType: 'application/json'
-        })
-          .then((result) => {
-            // console.log("result", result);
-            location.reload();
-          });
-      });
-
     })
     // .catch((error) => );
 };
