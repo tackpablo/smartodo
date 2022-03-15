@@ -220,6 +220,13 @@ function clockUpdate() {
   $('.digital-clock').text(h + ':' + m + ':' + s)
 }
 
+//time-related message
+function timeMessage() {
+  var date = new Date();
+  var hr = ndate.getHours();
+
+}
+
 
 
 // Signals the DOM is ready for manipulation
@@ -260,7 +267,7 @@ const movieAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
     }
   };
 
@@ -280,7 +287,7 @@ const booksAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "hapi-books.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
     }
   };
 
@@ -300,7 +307,7 @@ const buyAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "amazon24.p.rapidapi.com",
-      "x-rapidapi-key": 'b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5'
+      "x-rapidapi-key": '9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98'
     }
   };
 
@@ -320,7 +327,7 @@ const eatAPI = function(task) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "edamam-food-and-grocery-database.p.rapidapi.com",
-      "x-rapidapi-key": "b950e81843msh0e1980f9199cef0p106192jsn269fba5269b5"
+      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
     }
   };
 
