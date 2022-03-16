@@ -42,27 +42,35 @@ module.exports = (db) => {
     //   // Making request for posting information to database via AJAX request
 
     // })
+    // console.log(req.body)
+    const taskName = req.body.textVal.toLowerCase();
+    let parsedEncodedTextVal = req.body.encodedTextVal;
+    // const apiResults = req.body.apiResult;
+    Promise.allSettled([movieAPI(parsedEncodedTextVal), eatAPI(parsedEncodedTextVal), booksAPI(parsedEncodedTextVal)]).then((apiResult) => {
+    // console.log("apiResult", apiResult)
 
     // API REQUEST WITH DATA
-    const taskName = req.body.textVal.toLowerCase();
-    const apiResults = req.body.apiResult;
-    const parsedResults = apiResults.map((result)=> {
-      if (result["status"] === "rejected") {
+    const parsedResults = apiResult.map((result)=> {
+      if (result["status"] === "rejected" || result["value"] === undefined) {
         return {value: 0};
       } else {
         return result;
       }
     })
-    console.log("parsedResults: ", parsedResults)
+
+    // console.log("parsedResults: ", parsedResults)
     const movieLength = parsedResults[0]["value"];
+    // console.log("MOVIELENGTH: ", movieLength)
     const eatLength = parsedResults[1]["value"];
+    // console.log("EATLENGTH: ", eatLength)
     const booksLength = parsedResults[2]["value"];
+    // console.log("BOOKSLENGTH: ", booksLength)
     const parsedArray = [Number(movieLength), Number(eatLength), Number(booksLength)];
     const maxLength = Math.max(...parsedArray);
-    console.log("maxLength: ", maxLength)
-    console.log("taskName: ", taskName)
-    console.log("apiResults: ", apiResults)
-    console.log("parsedArray: ", parsedArray)
+    // console.log("maxLength: ", maxLength)
+    // console.log("taskName: ", taskName)
+    // console.log("apiResults: ", apiResults)
+    // console.log("parsedArray: ", parsedArray)
 
     // pre-emptive sorting for certain words
     if ((taskName.includes('watch') && (movieLength > 0))) {
@@ -96,6 +104,7 @@ module.exports = (db) => {
         // console.log(todo)
         res.json({ todo });
       })
+    })
       .catch(err => {
         res
           .status(500)

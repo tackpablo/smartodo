@@ -207,10 +207,7 @@ function timeMessage() {
 }
 
 
-
-
-
-  loadTodos();
+loadTodos();
 
 // modal
 $body = $("body");
@@ -240,84 +237,89 @@ $(document).on({
     console.log("textVal: ", textVal)
     console.log("encodedTextVal: ", encodedTextVal)
 
-// MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
-const movieAPI = function(task) {
-  const settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://advanced-movie-search.p.rapidapi.com/search/movie?query=${task}&page=1`,
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
-      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
+    // error handling for when we get nothing as an entry
+    if (textVal === undefined || textVal === "") {
+      return;
     }
-  };
 
-  return $.ajax(settings).then(function (response) {
-    let movieLength = response.results.length;
-    console.log("movieAPI length: ", response.results.length);
-    return movieLength;
-  });
-}
+// // MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
+// const movieAPI = function(task) {
+//   const settings = {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": `https://advanced-movie-search.p.rapidapi.com/search/movie?query=${task}&page=1`,
+//     "method": "GET",
+//     "headers": {
+//       "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
+//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
+//     }
+//   };
 
-// BOOKS API REQUEST - HAPI BOOKS API - WORKS
-const booksAPI = function(task) {
-  const settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://hapi-books.p.rapidapi.com/search/${task}`,
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "hapi-books.p.rapidapi.com",
-      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
-    }
-  };
+//   return $.ajax(settings).then(function (response) {
+//     let movieLength = response.results.length;
+//     console.log("movieAPI length: ", response.results.length);
+//     return movieLength;
+//   });
+// }
 
-  return $.ajax(settings).then(function (response) {
-    let booksLength = response.length;
-    console.log("booksAPI length: ", response.length);
-    return booksLength;
-  })
-}
+// // BOOKS API REQUEST - HAPI BOOKS API - WORKS
+// const booksAPI = function(task) {
+//   const settings = {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": `https://hapi-books.p.rapidapi.com/search/${task}`,
+//     "method": "GET",
+//     "headers": {
+//       "x-rapidapi-host": "hapi-books.p.rapidapi.com",
+//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
+//     }
+//   };
+
+//   return $.ajax(settings).then(function (response) {
+//     let booksLength = response.length;
+//     console.log("booksAPI length: ", response.length);
+//     return booksLength;
+//   })
+// }
 
 
-// EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
-const eatAPI = function(task) {
-  const settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=${task}`,
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "edamam-food-and-grocery-database.p.rapidapi.com",
-      "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
-    }
-  };
+// // EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
+// const eatAPI = function(task) {
+//   const settings = {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": `https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=${task}`,
+//     "method": "GET",
+//     "headers": {
+//       "x-rapidapi-host": "edamam-food-and-grocery-database.p.rapidapi.com",
+//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
+//     }
+//   };
 
-  return $.ajax(settings).then(function (response) {
-      let eatLength = response.hints.length;
-      console.log("eatAPI length: ", response.hints.length);
-      return (eatLength);
-  })
-}
+//   return $.ajax(settings).then(function (response) {
+//       let eatLength = response.hints.length;
+//       console.log("eatAPI length: ", response.hints.length);
+//       return (eatLength);
+//   })
+// }
 
-  Promise.allSettled([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal)]).then((apiResult) => {
-    console.log("apiResult", apiResult)
+  // Promise.allSettled([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal)]).then((apiResult) => {
+  //   console.log("apiResult", apiResult)
 
     // Making request for posting information to database via AJAX request
     $.ajax({ method: "POST", url: "/api/smartlist", data: {
-      apiResult,
-      textVal
+      textVal,
+      encodedTextVal
     }})
     .catch((error) => alert(error))
       .then((data) => {
-        console.log(data)
+        // console.log("TODO DATA: ", data.todo)
         loadTodos(appendTodo(data.todo));
 
       })
       .catch((error) => alert(error));
     });
-  })
+  // })
 });
 
 
