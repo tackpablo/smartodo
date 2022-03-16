@@ -1,9 +1,7 @@
 // Client facing scripts here
+
 // Signals the DOM is ready for manipulation
 $(document).ready(function () {
-
-// popup box
-
 
 // create element to inject into index.ejs
 const createTodo = function (todoData) {

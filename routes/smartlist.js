@@ -8,14 +8,15 @@ const {movieAPI, booksAPI, buyAPI, eatAPI} = require('../api/api')
 module.exports = (db) => {
   // get request for loading page (all tasks)
   router.get("/", (req, res) => {
-
-    if (!req.cookies["user_id"]) {
+    let user = req.cookies["user_id"];
+    if (!user) {
       res.status(401).send("You need to log in to do that!");
       return res.redirect('/users/login');
     }
 
-    let query = `SELECT todos.* FROM todos`;
-    db.query(query)
+    let query = `SELECT todos.* FROM todos WHERE todos.user_id = $1;`;
+
+    db.query(query, [user])
       .then(data => {
         const todos = data.rows;
         res.json({ todos });
@@ -69,7 +70,6 @@ module.exports = (db) => {
     const maxLength = Math.max(...parsedArray);
     // console.log("maxLength: ", maxLength)
     // console.log("taskName: ", taskName)
-    // console.log("apiResults: ", apiResults)
     // console.log("parsedArray: ", parsedArray)
 
     // pre-emptive sorting for certain words
@@ -83,7 +83,7 @@ module.exports = (db) => {
       category_id = 4;
     } else if (maxLength) {
       const categoryFound = (parsedArray.indexOf(maxLength)) + 1;
-      console.log("categoryFound: ",categoryFound);
+      // console.log("categoryFound: ",categoryFound);
       category_id = categoryFound;
     } else {
       category_id = 4;
