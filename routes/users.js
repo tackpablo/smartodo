@@ -80,7 +80,14 @@ module.exports = (db) => {
       const user = data.rows[0];
       // console.log("user: ", user)
       res.cookie('user_id', user.id);
-      res.redirect('/')
+      const templateVars = {
+        // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
+        user_id: req.cookies["user_id"]
+        ? req.cookies["user_id"]
+        : null,
+        user_email: user.email
+      };
+      res.render('smartlist', templateVars)
     })
     .catch(err => {
       res

@@ -1,20 +1,9 @@
 // Client facing scripts here
+// Signals the DOM is ready for manipulation
+$(document).ready(function () {
 
-// geolocation
-if ("geolocation" in navigator){ //check Geolocation available
-	//things to do
-}else{
-	console.log("Geolocation not available!");
-}
+// popup box
 
-if ("geolocation" in navigator){ //check geolocation available
-	//try to get user current location using getCurrentPosition() method
-	navigator.geolocation.getCurrentPosition(function(position){
-		// console.log("Found your location \nLat : "+position.coords.latitude+" \nLong :"+ position.coords.longitude);
-		});
-}else{
-	console.log("Browser doesn't support geolocation!");
-}
 
 // create element to inject into index.ejs
 const createTodo = function (todoData) {
@@ -30,7 +19,7 @@ const createTodo = function (todoData) {
     <p class="task-name">${escape(todoData.task)}</p>
     <div class="todo-options">
       <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
+        <button class="dropbtn btn_style">Dropdown</button>
         <div class="dropdown-content">
           <a href=# class="to-watch">THINGS TO WATCH</a>
           <a href=# class="to-eat">PLACES TO EAT</a>
@@ -38,7 +27,7 @@ const createTodo = function (todoData) {
           <a href=# class="to-buy">THINGS TO BUY</a>
         </div>
       </div>
-      <button class="delete_btn">Delete</button>
+      <button class="delete_btn btn_style">Delete</button>
     </div>
   </div>
 `;
@@ -219,8 +208,7 @@ function timeMessage() {
 
 
 
-// Signals the DOM is ready for manipulation
-$(document).ready(function () {
+
 
   loadTodos();
 

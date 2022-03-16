@@ -1,4 +1,33 @@
+/* INPUT TEXT AREA */
 #add-task {
   display: flex;
   flex-direction: column;
+  width: 80%;
+}
+
+#task-text:focus {
+  outline: none !important;
+  border:3px solid darkblue;
+  box-shadow: 0 0 10px #719ECE;
+}
+
+form label {
+  display: flex;
+  justify-content: center;
+  color:purple;
+  padding-bottom: 15px;
+  font-size: 40px;
+  font-family: sans-serif;
+}
+
+label.welcome {
+  font-family: fantasy;
+}
+
+
+.input-container {
+  padding-top: 2em;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
