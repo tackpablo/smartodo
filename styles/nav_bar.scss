@@ -1,0 +1,58 @@
+/* NAV BAR */
+*{transition:all 0.3s ease-out;}
+.nav-container{
+  clear:both;
+  overflow:auto;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1em;
+}
+
+nav{float:right;}
+
+.logo img{
+  float:left;
+  width: 100px;
+  height: 100px;
+  display: inline-flex;
+}
+
+ul li{
+  display: inline-block; padding:10px;
+  font-size:20px; font-family:raleway;
+}
+
+ul button {
+  display: inline-block;
+  padding:0.1em;
+  font-size:20px;
+}
+
+ul li:hover{
+  color:orange;
+}
+
+.nav-options {
+  display: flex;
+  flex-direction: row;
+  padding: 0 3em;
+  align-items: baseline;
+}
+
+/* CATEGORIES */
+.category-container{
+  padding: 0 10em;
+  height: 100%;
+}
+
+.category1, .category2, .category3, .category4, .category5 {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.8em;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  border-radius: 2em;
+  width: 100%;
+}

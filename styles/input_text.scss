@@ -18,12 +18,11 @@ form label {
   padding-bottom: 15px;
   font-size: 40px;
   font-family: sans-serif;
-}
 
-label.welcome {
-  font-family: fantasy;
+  .welcome{
+    font-family: fantasy;
+  }
 }
-
 
 .input-container {
   padding-top: 2em;
@@ -31,3 +30,5 @@ label.welcome {
   width: 100%;
   justify-content: center;
 }
+
+
