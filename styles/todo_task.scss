@@ -8,12 +8,16 @@
   font-size: 1.5em;
   display: flex;
   align-items: baseline;
-  border: 0.1em solid black;
   justify-content: space-evenly;
-  border-radius: 2em;
   width: 100%;
-  margin-bottom: 0.4px;
+  margin:0.5em;
+}
 
+#task-text {
+  width: 60%;
+  display: flex;
+  align-self: center;
+  height: 2.5em;
 }
 
 .task-name {
@@ -27,25 +31,20 @@
 }
 
 .dropbtn {
-  background-color: #4CAF50;
   color: white;
   padding: 0.8em;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  border-radius: 1em;
   margin-right: 1.5em;
 }
 
 .delete_btn {
-  background-color: #dc3545;
   color: white;
   padding: 0.8em;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  border-radius: 1em;
-
 }
 
 .dropdown {
@@ -75,12 +74,11 @@
   display: block;
 }
 
-
 .todolist {
   display:flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   flex-direction: column;
 }
 

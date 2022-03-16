@@ -17,7 +17,7 @@ const createTodo = function (todoData) {
     <p class="task-name">${escape(todoData.task)}</p>
     <div class="todo-options">
       <div class="dropdown">
-        <button class="dropbtn btn_style">Dropdown</button>
+        <button class="dropbtn btn_style">Categories</button>
         <div class="dropdown-content">
           <a href=# class="to-watch">THINGS TO WATCH</a>
           <a href=# class="to-eat">PLACES TO EAT</a>

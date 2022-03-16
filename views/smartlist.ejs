@@ -12,36 +12,40 @@
     <section class="input-container">
       <form id="add-task" action="/smartlist" method="POST">
         <label for="task" class="welcome"><span class="time-msg"></span> , Pablo! What's up?</label>
-        <textarea name="task" id="task-text" placeholder="Start typing here..."></textarea>
-        <button class="btn_style" type="submit">ADD</button>
+        <input name="task" id="task-text" type="text" placeholder="Start typing here..."></input>
+        <button class="btn_style add_btn" type="submit">Add</button>
       </form>
     </section>
 
     <!-- CATEGORIES -->
     <section class="category-container">
-      <div class="category-wrapper1">
-        <div class="category1">
-          <h2>THINGS TO WATCH</h2>
+      <div class="cat-column1">
+        <div class="category-wrapper1">
+          <div class="category1">
+            <h2>THINGS TO WATCH</h2>
+            <div class="todolist"></div>
+          </div>
+        </div>
+        <div class="category-wrapper2">
+        <div class="category2">
+          <h2>PLACES TO EAT</h2>
           <div class="todolist"></div>
         </div>
+        </div>
       </div>
-      <div class="category-wrapper2">
-      <div class="category2">
-        <h2>PLACES TO EAT</h2>
-        <div class="todolist"></div>
-      </div>
-      </div>
-      <div class="category-wrapper3">
-      <div class="category3">
-        <h2>BOOKS TO READ</h2>
-        <div class="todolist"></div>
-      </div>
-      </div>
-      <div class="category-wrapper4">
-      <div class="category4">
-        <h2>THINGS TO BUY</h2>
-        <div class="todolist"></div>
-      </div>
+      <div class="cat-column2">
+        <div class="category-wrapper3">
+        <div class="category3">
+          <h2>BOOKS TO READ</h2>
+          <div class="todolist"></div>
+        </div>
+        </div>
+        <div class="category-wrapper4">
+        <div class="category4">
+          <h2>THINGS TO BUY</h2>
+          <div class="todolist"></div>
+        </div>
+        </div>
       </div>
     </section>
 

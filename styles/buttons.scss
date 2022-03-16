@@ -16,6 +16,11 @@
   touch-action: manipulation;
 }
 
+.add_btn {
+  width: 30%;
+  align-self: center;
+}
+
 .btn_style:hover,
 .btn_style:active {
   outline: 0;
@@ -62,4 +67,8 @@
   50%{top:0em}
   100%{top:0em;}
   }
+
+
+
+
 
