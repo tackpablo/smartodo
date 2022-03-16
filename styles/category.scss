@@ -23,16 +23,19 @@
 .cat-column1, .cat-column2 {
   display: flex;
   align-self: center;
-  width: 100%;
+  width: 90%;
   gap: 0 1em;
 }
 
 
 .category-wrapper1, .category-wrapper2, .category-wrapper3, .category-wrapper4 {
   display: flex;
-  border: 0.1em ridge #f1f1f1;
+  border: 0.3em ridge #266DB6;
   margin: 0.1em 0;
   flex-grow: 1;
-  width: 100%;
+  width: 90%;
+}
 
+.cat_label {
+  font-size: 2em;
 }
