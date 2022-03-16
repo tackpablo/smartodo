@@ -40,13 +40,16 @@ module.exports = (db) => {
       const user = data.rows[0];
       console.log("user: ", user)
       res.cookie('user_id', user.id);
+      const nameSplit = user.full_name.split(" ");
+      const firstName = nameSplit[0]
 
       const templateVars = {
         // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
         user_id: req.cookies["user_id"]
         ? req.cookies["user_id"]
         : null,
-        user_email: user.email
+        user_email: user.email,
+        user_first_name: firstName
       };
       res.render('smartlist', templateVars)
     })
@@ -78,15 +81,16 @@ module.exports = (db) => {
     db.query(query, [users.full_name, users.password, users.email])
     .then(data => {
       const user = data.rows[0];
-      // console.log("user: ", user)
+      //console.log("userTest: ", user)
       res.cookie('user_id', user.id);
       const templateVars = {
         // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
         user_id: req.cookies["user_id"]
         ? req.cookies["user_id"]
         : null,
-        user_email: user.email
+        user_email: user.email,
       };
+      console.log("templateVars", templateVars);
       res.render('smartlist', templateVars)
     })
     .catch(err => {
