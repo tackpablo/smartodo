@@ -46,16 +46,23 @@ module.exports = (db) => {
     // API REQUEST WITH DATA
     const taskName = req.body.textVal.toLowerCase();
     const apiResults = req.body.apiResult;
-    const movieLength = apiResults[0];
-    const eatLength = apiResults[1];
-    const booksLength = apiResults[2];
-    const buyLength = apiResults[3];
-    const apiResultsNum = apiResults.map(Number)
-    const maxLength = Math.max(...apiResultsNum);
+    const parsedResults = apiResults.map((result)=> {
+      if (result["status"] === "rejected") {
+        return {value: 0};
+      } else {
+        return result;
+      }
+    })
+    console.log("parsedResults: ", parsedResults)
+    const movieLength = parsedResults[0]["value"];
+    const eatLength = parsedResults[1]["value"];
+    const booksLength = parsedResults[2]["value"];
+    const parsedArray = [Number(movieLength), Number(eatLength), Number(booksLength)];
+    const maxLength = Math.max(...parsedArray);
     console.log("maxLength: ", maxLength)
     console.log("taskName: ", taskName)
     console.log("apiResults: ", apiResults)
-    console.log("apiResultsNum: ", apiResultsNum)
+    console.log("parsedArray: ", parsedArray)
 
     // pre-emptive sorting for certain words
     if ((taskName.includes('watch') && (movieLength > 0))) {
@@ -64,10 +71,10 @@ module.exports = (db) => {
       category_id = 2;
     } else if ((taskName.includes('read')&& (booksLength > 0))) {
       category_id = 3;
-    } else if ((taskName.includes('buy')&& (buyLength > 0))) {
+    } else if (taskName.includes('buy')) {
       category_id = 4;
     } else if (maxLength) {
-      const categoryFound = (apiResultsNum.indexOf(maxLength)) + 1;
+      const categoryFound = (parsedArray.indexOf(maxLength)) + 1;
       console.log("categoryFound: ",categoryFound);
       category_id = categoryFound;
     } else {

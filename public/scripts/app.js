@@ -292,25 +292,6 @@ const booksAPI = function(task) {
   })
 }
 
-// BUYING API REQUEST - AMAZON API - WORKS
-const buyAPI = function(task) {
-  const settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://amazon24.p.rapidapi.com/api/product?keyword=${task}&country=CA&page=1`,
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-host": "amazon24.p.rapidapi.com",
-      "x-rapidapi-key": '9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98'
-    }
-  };
-
-  return $.ajax(settings).then(function (response) {
-      let buyLength = response.docs.length;
-      console.log("buyAPI length: ", response.docs.length);
-      return buyLength;
-  })
-};
 
 // EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
 const eatAPI = function(task) {
@@ -332,8 +313,9 @@ const eatAPI = function(task) {
   })
 }
 
-  Promise.all([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal)]).then((apiResult) => {
-    console.log(apiResult)
+  Promise.allSettled([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal)]).then((apiResult) => {
+    console.log("apiResult", apiResult)
+
     // Making request for posting information to database via AJAX request
     $.ajax({ method: "POST", url: "/api/smartlist", data: {
       apiResult,
