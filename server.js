@@ -44,30 +44,25 @@ app.use(
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const smartlistRoutes = require("./routes/smartlist");
 const userRoutes = require("./routes/users");
 
-// const smartlistEditroutes = require("./routes/smartlist_edit");
-// const smartlistDeleteRoutes = require("./routes/smartlist_delete");
-
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
 app.use("/api/smartlist", smartlistRoutes(db));
 app.use("/users", userRoutes(db));
-// app.use("/smartlist/:id", smartlistEditroutes(db));
-// app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
-// Note: mount other resources here, using the same pattern above
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 
-// app.get("/:id", (req, res) => {
-//   let id = req.params.id;
-//   res.cookies["user_id"] = id;
-//   res.redirect('/')
-// });
+app.get("/", (req, res) => {
+  const templateVars = {
+    user_id: req.cookies["user_id"]
+    ? req.cookies["user_id"]
+    : null,
+  };
+
+  res.render("index", templateVars);
+});
+
 
 app.get('/smartlist', (req, res) => {
   let userid = req.cookies["user_id"];
@@ -100,18 +95,6 @@ app.get('/smartlist', (req, res) => {
         .json({ error: err.message });
     });
 })
-
-app.get("/", (req, res) => {
-  const templateVars = {
-    // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
-    user_id: req.cookies["user_id"]
-    ? req.cookies["user_id"]
-    : null,
-  };
-
-  res.render("index", templateVars);
-});
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

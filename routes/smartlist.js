@@ -6,7 +6,7 @@ const router  = express.Router();
 const {movieAPI, booksAPI, eatAPI} = require('../api/api')
 
 module.exports = (db) => {
-  // get request for loading page (all tasks)
+  // GET request for loading page
   router.get("/", (req, res) => {
     let user = req.cookies["user_id"];
     if (!user) {
@@ -28,7 +28,7 @@ module.exports = (db) => {
       });
   });
 
-  // post request to add a task (all data for todos schema)
+  // POST request to add a task
   router.post("/", (req, res) => {
 
     if (!req.cookies["user_id"]) {
@@ -38,10 +38,12 @@ module.exports = (db) => {
     const taskName = req.body.textVal.toLowerCase();
     let parsedEncodedTextVal = req.body.encodedTextVal;
 
+    // External API request calls that waits for all promies to return
     Promise.allSettled([movieAPI(parsedEncodedTextVal), eatAPI(parsedEncodedTextVal), booksAPI(parsedEncodedTextVal)]).then((apiResult) => {
 
-    // API REQUEST WITH DATA
+    // External API request with data
     const parsedResults = apiResult.map((result)=> {
+      // error handling for when promise returns no value or is rejected
       if (result["status"] === "rejected" || result["value"] === undefined) {
         return {value: 0};
       } else {
@@ -55,7 +57,7 @@ module.exports = (db) => {
     const parsedArray = [Number(movieLength), Number(eatLength), Number(booksLength)];
     const maxLength = Math.max(...parsedArray);
 
-    // pre-emptive sorting for certain words
+    // sorting algorithm
     if ((taskName.includes('watch') && (movieLength > 0))) {
       category_id = 1;
     } else if ((taskName.includes('eat') && (eatLength > 0))) {
@@ -65,6 +67,7 @@ module.exports = (db) => {
     } else if (taskName.includes('buy')) {
       category_id = 4;
     } else if (maxLength) {
+      // in case of sorting via keywords + API result call (secondary check), API with most results will be category assigned
       const categoryFound = (parsedArray.indexOf(maxLength)) + 1;
       category_id = categoryFound;
     } else {
@@ -93,7 +96,7 @@ module.exports = (db) => {
       });
   });
 
-  // delete request to delete a task (all data for todos schema)
+  // DELETE request to delete a task
   router.delete("/:id", (req, res) => {
 
     if (!req.cookies["user_id"]) {
@@ -115,7 +118,7 @@ module.exports = (db) => {
       });
   });
 
-  // post request to edit a task (change category)
+  // POST request to edit a task (change category)
   router.put("/:id", (req, res) => {
     let editId = req.params.id;
     let category_id = req.body.category_id;

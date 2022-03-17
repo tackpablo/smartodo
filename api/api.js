@@ -1,9 +1,11 @@
+// External API requests using private keys
+
 require("dotenv").config();
 const axios = require("axios").default;
 
 const APIKEY = process.env.API_KEY;
 
-// MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
+// MOVIE API REQUEST - ADVANCED MOVIE SEARCH API
 const movieAPI = function(task) {
 const options = {
   method: 'GET',
@@ -23,7 +25,7 @@ return axios.request(options).then(function (response) {
 });
 }
 
-// BOOKS API REQUEST - HAPI BOOKS API - WORKS
+// BOOKS API REQUEST - HAPI BOOKS API
 const booksAPI = function(task) {
   const  options = {
     method: 'GET',
@@ -42,7 +44,7 @@ const booksAPI = function(task) {
   });
 }
 
-// EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
+// EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE
 const eatAPI = function(task, long, lat) {
 const options = {
     method: 'GET',
