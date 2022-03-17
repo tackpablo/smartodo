@@ -60,20 +60,36 @@ module.exports = (db) => {
    // POST request for registering a new user
    router.post("/register", (req, res) => {
 
-
-    const users = {
+    const user = {
       full_name: req.body.register_name,
       password: req.body.register_password,
       email: req.body.register_email
     }
 
-    let query = `INSERT INTO users (full_name, password, email) VALUES ($1, $2, $3) RETURNING *;`;
+    let query = `SELECT * FROM users WHERE users.email = $1 AND users.password = $2 AND users.full_name = $3;`;
 
-    db.query(query, [users.full_name, users.password, users.email])
+    db.query(query, [user.email, user.password, user.full_name])
     .then(data => {
       const user = data.rows[0];
-      res.cookie('user_id', user.id);
-      res.redirect('/smartlist')
+      console.log("SELECT USER: ", user)
+      if (!user) {
+        let query = `INSERT INTO users (full_name, password, email) VALUES ($1, $2, $3) RETURNING *;`;
+
+        db.query(query, [user.full_name, user.password, user.email])
+        .then(data => {
+          const user = data.rows[0];
+          console.log("INSERT USER: ", user)
+          res.cookie('user_id', user.id);
+          res.redirect('/smartlist')
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+      } else {
+        res.redirect('/users/login')
+      }
     })
     .catch(err => {
       res
