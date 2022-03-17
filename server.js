@@ -69,6 +69,38 @@ app.use("/users", userRoutes(db));
 //   res.redirect('/')
 // });
 
+app.get('/smartlist', (req, res) => {
+  let userid = req.cookies["user_id"];
+  let query = `SELECT * FROM users WHERE users.id = $1;`;
+
+  db.query(query, [userid])
+    .then(data => {
+      const user = data.rows[0];
+      console.log(user)
+
+      if (user === undefined) {
+        return res.redirect('/users/login');
+      }
+
+      const nameSplit = user["full_name"].split(" ");
+      const firstName = nameSplit[0]
+      const templateVars = {
+        user_id: user.id,
+        user_email: user.email,
+        user_first_name: firstName
+      };
+      console.log(templateVars)
+
+      return res.render('smartlist', templateVars);
+    })
+    .catch(err => {
+      console.log(err)
+      return res
+        .status(500)
+        .json({ error: err.message });
+    });
+})
+
 app.get("/", (req, res) => {
   const templateVars = {
     // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie

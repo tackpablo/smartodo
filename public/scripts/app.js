@@ -183,7 +183,7 @@ loadTodos();
 $body = $("body");
 
 $(document).on({
-  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStart: function() { $body.addClass("loading"); },
   ajaxStop: function() { $body.removeClass("loading"); }
 });
 
@@ -274,7 +274,7 @@ $(document).on({
     // Making request for posting information to database via AJAX request
     $.ajax({ method: "POST", url: "/api/smartlist", data: {
       textVal,
-      encodedTextVal
+      encodedTextVal,
     }})
     .catch((error) => alert(error))
       .then((data) => {

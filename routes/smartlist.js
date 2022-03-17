@@ -3,14 +3,13 @@ const router  = express.Router();
 
 
 // API middleware
-const {movieAPI, booksAPI, buyAPI, eatAPI} = require('../api/api')
+const {movieAPI, booksAPI, eatAPI} = require('../api/api')
 
 module.exports = (db) => {
   // get request for loading page (all tasks)
   router.get("/", (req, res) => {
     let user = req.cookies["user_id"];
     if (!user) {
-      res.status(401).send("You need to log in to do that!");
       return res.redirect('/users/login');
     }
 
@@ -19,7 +18,7 @@ module.exports = (db) => {
     db.query(query, [user])
       .then(data => {
         const todos = data.rows;
-        res.json({ todos });
+        res.send({ todos });
       })
       .catch(err => {
         console.log(err)
@@ -33,22 +32,13 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
 
     if (!req.cookies["user_id"]) {
-      res.status(401).send("You need to log in to do that!");
-      return;
+      return res.redirect('/users/login');
     }
 
-    // let encodedTextVal = encodeURI(req.body.textVal);
-    // Promise.all([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal), buyAPI(encodedTextVal)]).then((apiResult) => {
-    //   console.log(apiResult)
-    //   // Making request for posting information to database via AJAX request
-
-    // })
-    // console.log(req.body)
     const taskName = req.body.textVal.toLowerCase();
     let parsedEncodedTextVal = req.body.encodedTextVal;
-    // const apiResults = req.body.apiResult;
+
     Promise.allSettled([movieAPI(parsedEncodedTextVal), eatAPI(parsedEncodedTextVal), booksAPI(parsedEncodedTextVal)]).then((apiResult) => {
-    // console.log("apiResult", apiResult)
 
     // API REQUEST WITH DATA
     const parsedResults = apiResult.map((result)=> {
@@ -59,18 +49,11 @@ module.exports = (db) => {
       }
     })
 
-    // console.log("parsedResults: ", parsedResults)
     const movieLength = parsedResults[0]["value"];
-    // console.log("MOVIELENGTH: ", movieLength)
     const eatLength = parsedResults[1]["value"];
-    // console.log("EATLENGTH: ", eatLength)
     const booksLength = parsedResults[2]["value"];
-    // console.log("BOOKSLENGTH: ", booksLength)
     const parsedArray = [Number(movieLength), Number(eatLength), Number(booksLength)];
     const maxLength = Math.max(...parsedArray);
-    // console.log("maxLength: ", maxLength)
-    // console.log("taskName: ", taskName)
-    // console.log("parsedArray: ", parsedArray)
 
     // pre-emptive sorting for certain words
     if ((taskName.includes('watch') && (movieLength > 0))) {
@@ -83,7 +66,6 @@ module.exports = (db) => {
       category_id = 4;
     } else if (maxLength) {
       const categoryFound = (parsedArray.indexOf(maxLength)) + 1;
-      // console.log("categoryFound: ",categoryFound);
       category_id = categoryFound;
     } else {
       category_id = 4;
@@ -101,7 +83,6 @@ module.exports = (db) => {
     db.query(query, [todos.task, todos.category_id, todos.user_id, todos.important_tasks])
       .then(data => {
         const todo = data.rows[0];
-        // console.log(todo)
         res.json({ todo });
       })
     })
@@ -121,9 +102,7 @@ module.exports = (db) => {
     }
 
     let deleteId = req.params.id;
-    // console.log(deleteId)
     let query = `DELETE FROM todos WHERE id = ${deleteId}`;
-    // console.log(query);
     db.query(query)
       .then(data => {
         const todos = data.rows;
@@ -140,15 +119,11 @@ module.exports = (db) => {
   router.put("/:id", (req, res) => {
     let editId = req.params.id;
     let category_id = req.body.category_id;
-    console.log("req.body:", req.body)
-    console.log("category id: ", category_id);
-    //todos.category_id
     let query = `
     UPDATE todos
     SET category_id = $1
     WHERE id = $2
     `;
-    console.log(query);
     db.query(query, [category_id, editId])
       .then(data => {
         const category = data.rows;
