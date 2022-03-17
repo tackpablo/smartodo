@@ -2,10 +2,10 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
- // get request for logging a user in
+ // GET request for logging a user in
  router.get("/login", (req, res) => {
+
   const templateVars = {
-    // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
     user_id: req.cookies["user_id"]
     ? req.cookies["user_id"]
     : null,
@@ -13,10 +13,10 @@ module.exports = (db) => {
     res.render('users_login', templateVars);
   });
 
- // get registering for logging a user in
+ // GET registering for logging a user in
  router.get("/register", (req, res) => {
+   // set object where user_id is the value of the cookie where if set or null if no cookie
   const templateVars = {
-    // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
     user_id: req.cookies["user_id"]
     ? req.cookies["user_id"]
     : null,
@@ -24,7 +24,7 @@ module.exports = (db) => {
     res.render('users_register', templateVars);
   });
 
-  // post request for logging a user in
+  // POST request for logging a user in
   router.post("/login", (req, res) => {
     console.log(req.body)
 
@@ -38,20 +38,11 @@ module.exports = (db) => {
     db.query(query, [user.email, user.password])
     .then(data => {
       const user = data.rows[0];
-      console.log("user: ", user)
+      if (user === undefined) {
+        res.redirect('/users/login')
+      }
       res.cookie('user_id', user.id);
-      const nameSplit = user.full_name.split(" ");
-      const firstName = nameSplit[0]
-
-      const templateVars = {
-        // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
-        user_id: req.cookies["user_id"]
-        ? req.cookies["user_id"]
-        : null,
-        user_email: user.email,
-        user_first_name: firstName
-      };
-      res.render('smartlist', templateVars)
+      res.redirect('/smartlist')
     })
     .catch(err => {
       res
@@ -60,16 +51,14 @@ module.exports = (db) => {
     });
   });
 
-  // post request for logging a user out
+  // POST request for logging a user out
   router.get("/logout", (req, res) => {
     res.clearCookie("user_id");
     res.redirect('/');
   });
 
-   // post request for registering a user
+   // POST request for registering a new user
    router.post("/register", (req, res) => {
-    console.log(req.body)
-
     const users = {
       full_name: req.body.register_name,
       password: req.body.register_password,
@@ -81,17 +70,8 @@ module.exports = (db) => {
     db.query(query, [users.full_name, users.password, users.email])
     .then(data => {
       const user = data.rows[0];
-      //console.log("userTest: ", user)
       res.cookie('user_id', user.id);
-      const templateVars = {
-        // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
-        user_id: req.cookies["user_id"]
-        ? req.cookies["user_id"]
-        : null,
-        user_email: user.email,
-      };
-      console.log("templateVars", templateVars);
-      res.render('smartlist', templateVars)
+      res.redirect('/smartlist')
     })
     .catch(err => {
       res

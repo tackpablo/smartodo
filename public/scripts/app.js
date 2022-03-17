@@ -55,7 +55,7 @@ const appendTodo = function (todo) {
   }
 }
 
-// for every task, append to correct category
+// function to render all tasks
 const renderTodos = function (todos) {
   // empties the html of any appended tasks so that the new tasks can load
   $(".todolist").html("");
@@ -65,8 +65,10 @@ const renderTodos = function (todos) {
   });
 };
 
-// Loads todos onto browser via AJAX request
+// function to load tasks to DOM
 const loadTodos = function () {
+
+  // API request to retrieve data from DB
   $.ajax("/api/smartlist", {
     method: "GET",
     dataType: "json",
@@ -78,24 +80,23 @@ const loadTodos = function () {
       $(".delete_btn").on("click", function () {
 
         const itemId = $(this).parent().parent().attr("id")
-        // console.log("itemId: ", itemId)
 
+        // API request to remove data from DB
         $.ajax(`/api/smartlist/${itemId}`, {
           method: "DELETE",
           dataType: "json",
         })
           .then((result) => {
-            // console.log("result", result)
-
             $("div").remove(`#${itemId}.todoitems`);
-
           });
       });
 
-      // edit functionality
+      // edit functionality via on click
       $(".to-watch").on("click", function () {
         const $todoDiv = $(this).parent().parent().parent().parent();
         const itemId = $todoDiv.attr("id");
+
+        // API requests to edit data from DB
         $.ajax(`/api/smartlist/${itemId}`, {
           method: "PUT",
           data: JSON.stringify({category_id: 1}),
@@ -103,7 +104,6 @@ const loadTodos = function () {
           contentType: 'application/json'
         })
           .then((result) => {
-            // console.log("result", result);
             location.reload();
           });
       });
@@ -118,7 +118,6 @@ const loadTodos = function () {
           contentType: 'application/json'
         })
           .then((result) => {
-            // console.log("result", result);
             location.reload();
           });
       });
@@ -133,7 +132,6 @@ const loadTodos = function () {
           contentType: 'application/json'
         })
           .then((result) => {
-            // console.log("result", result);
             location.reload();
           });
       });
@@ -148,16 +146,14 @@ const loadTodos = function () {
           contentType: 'application/json'
         })
           .then((result) => {
-            // console.log("result", result);
             location.reload();
           });
       });
     })
-    // .catch((error) => );
 };
 
 
-//time-related message
+// function for time related message upon login
 function timeMessage() {
   var date = new Date();
   var hr = date.getHours();
@@ -177,114 +173,43 @@ function timeMessage() {
 }
 
 
-loadTodos();
 
-// modal
+// modal class addition/removal
 $body = $("body");
 
 $(document).on({
-  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStart: function() { $body.addClass("loading"); },
   ajaxStop: function() { $body.removeClass("loading"); }
 });
 
- //time-dependent-msg
- timeMessage();
- setInterval(timeMessage, 1000);
+loadTodos();
+timeMessage();
+setInterval(timeMessage, 1000);
 
-  // Form Submission Event Handler - prevent default of reloading page
+  // form submission event handler
   const $form = $("#add-task");
-  // addition of new tasks
   $form.submit(function (event) {
     event.preventDefault();
 
     let textVal = $('#task-text').val();
     let encodedTextVal = encodeURI(textVal);
-    console.log("textVal: ", textVal)
-    console.log("encodedTextVal: ", encodedTextVal)
 
-    // error handling for when we get nothing as an entry
+    // error handling for when input text is empty
     if (textVal === undefined || textVal === "") {
       return;
     }
 
-// // MOVIE API REQUEST - ADVANCED MOVIE SEARCH API - WORKS
-// const movieAPI = function(task) {
-//   const settings = {
-//     "async": true,
-//     "crossDomain": true,
-//     "url": `https://advanced-movie-search.p.rapidapi.com/search/movie?query=${task}&page=1`,
-//     "method": "GET",
-//     "headers": {
-//       "x-rapidapi-host": "advanced-movie-search.p.rapidapi.com",
-//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
-//     }
-//   };
-
-//   return $.ajax(settings).then(function (response) {
-//     let movieLength = response.results.length;
-//     console.log("movieAPI length: ", response.results.length);
-//     return movieLength;
-//   });
-// }
-
-// // BOOKS API REQUEST - HAPI BOOKS API - WORKS
-// const booksAPI = function(task) {
-//   const settings = {
-//     "async": true,
-//     "crossDomain": true,
-//     "url": `https://hapi-books.p.rapidapi.com/search/${task}`,
-//     "method": "GET",
-//     "headers": {
-//       "x-rapidapi-host": "hapi-books.p.rapidapi.com",
-//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
-//     }
-//   };
-
-//   return $.ajax(settings).then(function (response) {
-//     let booksLength = response.length;
-//     console.log("booksAPI length: ", response.length);
-//     return booksLength;
-//   })
-// }
-
-
-// // EATING API REQUEST - EDAMAM FOOD AND GROCERY DATABASE - WORKS
-// const eatAPI = function(task) {
-//   const settings = {
-//     "async": true,
-//     "crossDomain": true,
-//     "url": `https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=${task}`,
-//     "method": "GET",
-//     "headers": {
-//       "x-rapidapi-host": "edamam-food-and-grocery-database.p.rapidapi.com",
-//       "x-rapidapi-key": "9637cc0574mshada86068be2ce37p1b4b95jsn79c0b67f1b98"
-//     }
-//   };
-
-//   return $.ajax(settings).then(function (response) {
-//       let eatLength = response.hints.length;
-//       console.log("eatAPI length: ", response.hints.length);
-//       return (eatLength);
-//   })
-// }
-
-  // Promise.allSettled([movieAPI(encodedTextVal), eatAPI(encodedTextVal), booksAPI(encodedTextVal)]).then((apiResult) => {
-  //   console.log("apiResult", apiResult)
-
-    // Making request for posting information to database via AJAX request
+    // API request to add data from DB
     $.ajax({ method: "POST", url: "/api/smartlist", data: {
       textVal,
-      encodedTextVal
+      encodedTextVal,
     }})
     .catch((error) => alert(error))
       .then((data) => {
-        // console.log("TODO DATA: ", data.todo)
         loadTodos(appendTodo(data.todo));
-
       })
       .catch((error) => alert(error));
     });
-  // })
 });
 
 

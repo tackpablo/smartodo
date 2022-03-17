@@ -44,34 +44,17 @@ app.use(
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const smartlistRoutes = require("./routes/smartlist");
 const userRoutes = require("./routes/users");
 
-// const smartlistEditroutes = require("./routes/smartlist_edit");
-// const smartlistDeleteRoutes = require("./routes/smartlist_delete");
-
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
 app.use("/api/smartlist", smartlistRoutes(db));
 app.use("/users", userRoutes(db));
-// app.use("/smartlist/:id", smartlistEditroutes(db));
-// app.use("/smartlist/:id/delete", smartlistDeleteRoutes(db));
-// Note: mount other resources here, using the same pattern above
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
-// app.get("/:id", (req, res) => {
-//   let id = req.params.id;
-//   res.cookies["user_id"] = id;
-//   res.redirect('/')
-// });
 
 app.get("/", (req, res) => {
   const templateVars = {
-    // set object where user_id is the value of the cookie and email is a ternary operator where if user exists, give email or null if no cookie
     user_id: req.cookies["user_id"]
     ? req.cookies["user_id"]
     : null,
@@ -80,6 +63,38 @@ app.get("/", (req, res) => {
   res.render("index", templateVars);
 });
 
+
+app.get('/smartlist', (req, res) => {
+  let userid = req.cookies["user_id"];
+  let query = `SELECT * FROM users WHERE users.id = $1;`;
+
+  db.query(query, [userid])
+    .then(data => {
+      const user = data.rows[0];
+      console.log(user)
+
+      if (user === undefined) {
+        return res.redirect('/users/login');
+      }
+
+      const nameSplit = user["full_name"].split(" ");
+      const firstName = nameSplit[0]
+      const templateVars = {
+        user_id: user.id,
+        user_email: user.email,
+        user_first_name: firstName
+      };
+      console.log(templateVars)
+
+      return res.render('smartlist', templateVars);
+    })
+    .catch(err => {
+      console.log(err)
+      return res
+        .status(500)
+        .json({ error: err.message });
+    });
+})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

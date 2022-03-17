@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/todo_task.css" type="text/css" />
   <link rel="stylesheet" href="/styles/buttons.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/clock.css" type="text/css" />
   <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
   <link rel="stylesheet" href="/styles/landingpage.css" type="text/css" />
   <link rel="stylesheet" href="/styles/forms.css" type="text/css" />
@@ -30,14 +29,18 @@
       <a href="/">
         <img src="https://www.graphicsprings.com/filestorage/stencils/ed8fe22e267f227c5be2d9c9a6b40917.png?width=500&height=500" alt="smartodo logo" width="130"/>
       </a>
-      </div>
+      <% if (user_id) { %>
+        <form method="GET" action="/smartlist">
+          <button class="btn_style login-options">Task List</a>
+        </form>
+      <% } %>
+    </div>
     <nav>
       <% if (user_id) { %>
       <ul>
-        <!-- <li>${user_email}</li> -->
-        <form id="logout" action="/users/logout" method="GET">
-          <button class="btn_style">Logout</button>
-        </form>
+          <form id="logout" action="/users/logout" method="GET">
+            <button class="btn_style">Logout</button>
+          </form>
       </ul>
       <% } else { %>
         <ul class="nav-options">

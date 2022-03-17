@@ -1,3 +1,5 @@
+-- Drop and recreate todos table
+
 DROP TABLE IF EXISTS todos CASCADE;
 
 CREATE TABLE todos (
