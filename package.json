@@ -1,7 +1,7 @@
 {
   "name": "node-skeleton",
   "version": "1.0.0",
-  "description": "",
+  "description": "A smart task app that can categorize tasks using sorting algorithms based on API calls",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
-  "author": "Lighthouse Labs",
+  "author": "Lighthouse Labs, Pablo Tack, Sathvik Yuki Fujiwara",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",

@@ -59,6 +59,8 @@ module.exports = (db) => {
 
    // POST request for registering a new user
    router.post("/register", (req, res) => {
+
+
     const users = {
       full_name: req.body.register_name,
       password: req.body.register_password,

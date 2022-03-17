@@ -196,7 +196,10 @@ setInterval(timeMessage, 1000);
 
     // error handling for when input text is empty
     if (textVal === undefined || textVal === "") {
-      return;
+      $(".input_message").addClass('appear')
+      setTimeout(() => {
+      return $(".input_message").removeClass('appear');
+      }, 3000)
     }
 
     // API request to add data from DB
