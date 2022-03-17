@@ -26,7 +26,6 @@ module.exports = (db) => {
 
   // POST request for logging a user in
   router.post("/login", (req, res) => {
-    console.log(req.body)
 
     const user = {
       password: req.body.login_password,
@@ -70,16 +69,14 @@ module.exports = (db) => {
 
     db.query(query, [user.email, user.password, user.full_name])
     .then(data => {
-      const user = data.rows[0];
-      console.log("SELECT USER: ", user)
-      if (!user) {
+      const users = data.rows[0];
+      if (!users) {
         let query = `INSERT INTO users (full_name, password, email) VALUES ($1, $2, $3) RETURNING *;`;
 
         db.query(query, [user.full_name, user.password, user.email])
         .then(data => {
-          const user = data.rows[0];
-          console.log("INSERT USER: ", user)
-          res.cookie('user_id', user.id);
+          const users = data.rows[0];
+          res.cookie('user_id', users.id);
           res.redirect('/smartlist')
         })
         .catch(err => {
