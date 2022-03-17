@@ -177,10 +177,7 @@ function timeMessage() {
 // modal class addition/removal
 $body = $("body");
 
-$(document).on({
-  ajaxStart: function() { $body.addClass("loading"); },
-  ajaxStop: function() { $body.removeClass("loading"); }
-});
+
 
 loadTodos();
 timeMessage();
@@ -196,8 +193,8 @@ setInterval(timeMessage, 1000);
     // error handling for when input text is empty
     if (textVal === undefined || textVal === "") {
       $(".input_message").addClass('appear')
-      setTimeout(() => {
-        return $(".input_message").removeClass('appear');
+      return setTimeout(() => {
+        $(".input_message").removeClass('appear');
       }, 3000)
     }
 
@@ -215,6 +212,8 @@ setInterval(timeMessage, 1000);
 
     const encodedTextVal = encodeURI(filteredTextVal);
 
+    $body.addClass("loading");
+
     // API request to add data from DB
     $.ajax({ method: "POST", url: "/api/smartlist", data: {
       textVal,
@@ -223,6 +222,7 @@ setInterval(timeMessage, 1000);
     .catch((error) => alert(error))
       .then((data) => {
         loadTodos(appendTodo(data.todo));
+        $body.removeClass("loading");
       })
       .catch((error) => alert(error));
     });
