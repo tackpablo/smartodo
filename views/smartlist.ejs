@@ -7,7 +7,7 @@
     <section class="input-container">
       <form id="add-task" action="/smartlist" method="POST">
         <% if (user_first_name) { %>
-        <label for="task" class="welcome "><span class="time-msg"></span> ,&nbsp;<span> <%= user_first_name %></span> ! What's up?</label>
+        <label for="task" class="welcome "><span class="time-msg"></span> ,&nbsp;<span> <%= user_first_name %></span> <span>! What's up?</span></label>
         <% } %>
         <input name="task" id="task-text" type="text" placeholder="Start typing here..."></input>
         <button class="btn_style add_btn" type="submit">Add</button>
