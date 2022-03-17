@@ -36,10 +36,11 @@ module.exports = (db) => {
     }
 
     const taskName = req.body.textVal.toLowerCase();
-    let parsedEncodedTextVal = req.body.encodedTextVal;
+    const parsedEncodedTextVal = req.body.encodedTextVal;
 
     // External API request calls that waits for all promies to return
     Promise.allSettled([movieAPI(parsedEncodedTextVal), eatAPI(parsedEncodedTextVal), booksAPI(parsedEncodedTextVal)]).then((apiResult) => {
+      console.log("APIRESULT: ", apiResult)
 
     // External API request with data
     const parsedResults = apiResult.map((result)=> {

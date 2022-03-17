@@ -191,16 +191,29 @@ setInterval(timeMessage, 1000);
   $form.submit(function (event) {
     event.preventDefault();
 
-    let textVal = $('#task-text').val();
-    let encodedTextVal = encodeURI(textVal);
+    const textVal = $('#task-text').val();
 
     // error handling for when input text is empty
     if (textVal === undefined || textVal === "") {
       $(".input_message").addClass('appear')
       setTimeout(() => {
-      return $(".input_message").removeClass('appear');
+        return $(".input_message").removeClass('appear');
       }, 3000)
     }
+
+    const splitTextVal = textVal.toLowerCase().split(" ");
+
+    let sliced = "";
+
+    if (splitTextVal[0] === "watch" || splitTextVal[0] === "buy" || splitTextVal[0] === "read" || splitTextVal[0] === "eat") {
+      sliced = splitTextVal.slice(1, splitTextVal.length)
+     } else {
+       sliced = splitTextVal;
+     }
+
+    const filteredTextVal = sliced.join(" ")
+
+    const encodedTextVal = encodeURI(filteredTextVal);
 
     // API request to add data from DB
     $.ajax({ method: "POST", url: "/api/smartlist", data: {

@@ -19,6 +19,7 @@ const options = {
 
 return axios.request(options).then(function (response) {
 	let movieLength = response.data.results.length;
+  console.log("MOVIELENGTH:", movieLength)
   return movieLength
 }).catch(function (error) {
 	console.error(error);
@@ -38,6 +39,7 @@ const booksAPI = function(task) {
 
   return axios.request(options).then(function (response) {
     let booksLength = response.data.length;
+    console.log("BOOKSLENGTH: ", booksLength)
     return booksLength;
   }).catch(function (error) {
     console.error(error);
@@ -58,6 +60,7 @@ const options = {
 
   return axios.request(options).then(function (response) {
     let eatLength = response.data.hints.length;
+    console.log("EATLENGTH: ", eatLength)
     return eatLength;
   }).catch(function (error) {
     console.error(error);
