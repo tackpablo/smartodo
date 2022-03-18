@@ -1,6 +1,6 @@
 # Smartodo Project
 
-Smartodo is a full stack to do list application that is able to categorize added tasks. It was made using EJS, sass, JS, jQuery/AJAX, Axios, Node.js and postgreSQL. External APIs used were: Advanced Movie Search API, HAPI Books API and the Edamam Food and Frocery Database API. Midterm project for Lighthouse Labs Midterm
+Smartodo is a full stack todo list application that is able to categorize added tasks. It was made using EJS, sass, JS, jQuery/AJAX, Axios, Node.js and postgreSQL. External APIs used were: Advanced Movie Search API, HAPI Books API and the Edamam Food and Grocery Database API. Midterm project for Lighthouse Labs Web Development Bootcamp
 
 # How to use Smartodo and Features
 
@@ -20,57 +20,52 @@ Smartodo is a full stack to do list application that is able to categorize added
 
 ### Desktop View
 
-!["Desktop View"]()
+!["Desktop View"](https://github.com/tackpablo/smartodo/blob/master/public/images/Desktop%20View.png)
 
 ### Mobile View
 
-!["Mobile View"]()
+!["Mobile View"](https://github.com/tackpablo/smartodo/blob/master/public/images/Mobile%20View.png)
 
 # Features
 
 ### Landing Page
 
-!["Landing Page"]()
+!["Landing Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Landing%20Page.gif)
 
 ### Login Page
 
-!["Login Page"]()
+!["Login Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Login.gif)
 
 ### Register Page
 
-!["Register Page"]()
+!["Register Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Register.gif)
 
 ### Add Task Page
 
-!["Add Task Page"]()
+!["Add Task Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Add%20Task.gif)
 
 ### Edit Task Page
 
-!["Edit Task Page"]()
+!["Edit Task Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Edit%20Task.gif)
 
 ### Delete Task Page
 
-!["Delete Task Page"]()
+!["Delete Task Page"](https://github.com/tackpablo/smartodo/blob/master/public/images/Delete%20Task.gif)
 
 # Errors
 
 ### Empty Inputs
 
-!["Empty Inputs"]()
+!["Empty Inputs"](https://github.com/tackpablo/smartodo/blob/master/public/images/Empty%20Inputs.gif)
 
 # Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
 2. Update the .env file with your correct local information 
-  - username: `labber` 
-  - password: `labber` 
-  - database: `midterm`
 3. Install dependencies: `npm i`
 4. Fix to binaries for sass: `npm rebuild node-sass`
 5. Reset database: `npm run db:reset`
-  - Check the db folder to see what gets created and seeded in the SDB
 7. Run the server: `npm run local`
-  - Note: nodemon is used, so you should not have to restart your server
 8. Visit `http://localhost:8080/`
 
 ## Warnings & Tips
@@ -79,6 +74,38 @@ Smartodo is a full stack to do list application that is able to categorize added
 - Use the `npm run db:reset` command each time there is a change to the database schema or seeds. 
   - It runs through each of the files, in order, and executes them against the database. 
   - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
+
+# Contributions
+
+## My Contributions
+
+- All database tables and seeds setup, queries on server side
+- Overall page routing between server and client side (logic, data movement/manipulation, and implementation)
+  - Includes login and register functionalities, persisting cookie data
+- Axios implementation to move external API calls to server side (initially set up client side)
+- Find sources for all external APIs and implement them
+- Views setup and styling for all rendered pages - landing page, forms, partials header, etc
+  - Includes most styling (such as bouncing nav bar items and spinner modal) as well as functionality for all requests from these pages
+- Site functionality: addition of new tasks, deletion, login/logout, registration and correct database manipulation to allow for these functions
+- All site links for ease of navigation
+- Separate all styles into separate files using middleware provided
+- Consistently refactor code
+- Do code clean up
+- Make site mobile responsive
+
+## [Partner Yuki Fujiwara's](https://github.com/shiawase7) Contributions
+
+- Styling/Initial text Input button
+- Editing feature for the drop down buttons implementation
+- Preliminary logic for handling returned API requests
+- Hiding API key
+- Welcome message dependant on time, dynamic user specific message
+- Refactored logic and containers to not include miscellaneous as a category, as well as removing the AmazonAPI to improve performance and logic
+- Involved in pair programming and discussing logic/implementation/debugging for several other features
+- Set up cookies for login
+- Font styling, container adjustments
+- Refactoring logic to exclude keywords
+
 
 # Dependencies
 
@@ -94,32 +121,3 @@ Smartodo is a full stack to do list application that is able to categorize added
 - morgan
 - pg
 - sass
-
-# Contributions
-
-## My Contributions
-
-- All database tables and seeds setup, queries on server side
-- Overall page routing between server and client side (logic, data movement/manipulation, and implementation)
-  - Includes login and register functionalities, persisting cookie data
-- Axios implementation to move external API calls to server side (initially set up client side)
-- Find sources for all external APIs
-- Views setup and styling for all rendered pages - landing page, forms, partials header, etc
-  - Includes most styling (such as bouncing nav bar items and spinner modal) as well as functionality for all requests from these pages
-- Site functionality: addition of new tasks, deletion, login/logout, registration and correct database manipulation to allow for these functions
-- All site links for ease of navigation
-- Separate all styles into separate files
-- Consistently refactor code
-- Do code clean up
-- Make site mobile responsive
-
-## [Partner Yuki Fujiwara's](https://github.com/shiawase7) Contributions
-
-- Styling/initial text Input button
-- Editing feature for the drop down buttons implementation
-- Welcome message dependant on time, dynamic user specific message
-- Refactored logic and containers to not include miscellaneous as a category, as well as removing the AmazonAPI to improve performance and logic
-- Involved in pair programming and discussing logic/implementation/debugging for several other features
-- Set up cookies for login
-- Font styling, container adjustments
-- Refactoring logic to exclude keywords
